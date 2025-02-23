@@ -1,4 +1,3 @@
-import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
 
 const partners = [
@@ -53,7 +52,7 @@ export default function SectionFamily() {
                 <p className="text-gray-400 text-sm">{partner.role}</p>
               </div>
               <blockquote className="text-gray-300 mb-4 italic">
-                "{partner.quote}"
+                &quot;{partner.quote}&quot;
               </blockquote>
               <p className="text-sm text-gray-400">- {partner.speaker}</p>
               <a 

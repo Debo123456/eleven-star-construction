@@ -22,7 +22,7 @@ export default function ContactPage() {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
                 <p className="text-gray-600 mb-8">
-                  Whether you're looking to discuss a new project, explore partnership opportunities, 
+                  Whether you&apos;re looking to discuss a new project, explore partnership opportunities, 
                   or learn more about our services, our team is here to help.
                 </p>
               </div>

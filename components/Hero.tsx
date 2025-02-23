@@ -23,7 +23,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Building Tomorrow's Infrastructure Today
+          Building Tomorrow&apos;s Infrastructure Today
         </h1>
         <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
           Eleven Star Construction delivers innovative engineering solutions 

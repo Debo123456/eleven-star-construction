@@ -44,7 +44,7 @@ export default function SectionGlance() {
             <CardContent>
               <p className="text-gray-600 text-center">
                 From groundbreaking infrastructure developments to complex construction challenges, 
-                explore how we're building a better future.
+                explore how we&apos;re building a better future.
               </p>
               <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
                 See Projects

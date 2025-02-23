@@ -68,7 +68,7 @@ export default function ProjectsPage() {
         <div className="relative z-10 text-center px-4">
           <h1 className="text-5xl font-bold mb-4">Featured Projects</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Showcasing Eleven Star Construction's commitment to excellence 
+            Showcasing Eleven Star Construction&apos;s commitment to excellence 
             through our portfolio of transformative projects.
           </p>
         </div>
