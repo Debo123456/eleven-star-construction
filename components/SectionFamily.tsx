@@ -51,7 +51,7 @@ export default function SectionFamily() {
                 <h3 className="text-xl font-semibold mb-2">{partner.name}</h3>
                 <p className="text-gray-400 text-sm">{partner.role}</p>
               </div>
-              <blockquote className="text-gray-300 mb-4 italic">
+              <blockquote className="text-gray-600 mb-4">
                 &quot;{partner.quote}&quot;
               </blockquote>
               <p className="text-sm text-gray-400">- {partner.speaker}</p>

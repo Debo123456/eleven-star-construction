@@ -1,5 +1,3 @@
-import { FaLinkedin, FaTwitter, FaFacebook, FaYoutube } from "react-icons/fa"
-
 export default function Footer() {
   return (
     <footer className="bg-black text-white mt-0 border-t border-gray-800">
@@ -9,7 +7,7 @@ export default function Footer() {
           <div>
             <h3 className="text-xl font-bold mb-4">Eleven Star Construction</h3>
             <p className="text-gray-400">
-              Building tomorrow's infrastructure with innovation and excellence.
+              Building tomorrow&apos;s infrastructure with innovation and excellence.
             </p>
           </div>
 

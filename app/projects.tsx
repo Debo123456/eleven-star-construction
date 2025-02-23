@@ -88,7 +88,7 @@ export default function ProjectsPage() {
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-3xl font-bold mb-4">Have a Project in Mind?</h2>
           <p className="text-gray-300 mb-8">
-            Let's discuss how Eleven Star Construction can bring your vision to reality.
+            Let&apos;s discuss how Eleven Star Construction can bring your vision to reality.
           </p>
           <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-300 transform hover:scale-105">
             Start a Conversation

@@ -61,8 +61,8 @@ export default function SectionGlance() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 text-center">
-                Delivering excellence in commercial construction, infrastructure development, 
-                and specialized engineering solutions across diverse sectors.
+                We&apos;re committed to delivering excellence in every project, 
+                from highways to bridges and beyond.
               </p>
               <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
                 Our Services
