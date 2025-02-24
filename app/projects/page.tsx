@@ -12,7 +12,7 @@ interface Project {
 }
 
 export default function ProjectsPage() {
-  const projects = [
+  const projects: Project[] = [
     {
       title: "Interstate Highway Expansion",
       category: "Infrastructure",

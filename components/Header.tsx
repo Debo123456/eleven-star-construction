@@ -1,18 +1,20 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 
 export default function Header() {
   return (
     <header className="bg-white shadow-sm">
       <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
         <Link href="/" className="flex items-center space-x-2">
-          <img
+          <Image
             src="/images/logo.svg"
             alt="Eleven Star Construction"
             className="h-8 w-auto text-gray-900"
             height={32}
             width={160}
+            priority
           />
         </Link>
         
