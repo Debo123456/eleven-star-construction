@@ -14,17 +14,17 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li><a href="/services" className="text-gray-400 hover:text-white transition-colors">Services</a></li>
-              <li><a href="/projects" className="text-gray-400 hover:text-white transition-colors">Projects</a></li>
-              <li><a href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+            <ul className="space-y-2" role="list">
+              <li><a href="/services" className="text-gray-400 hover:text-white transition-colors" aria-label="View our services">Services</a></li>
+              <li><a href="/projects" className="text-gray-400 hover:text-white transition-colors" aria-label="View our projects">Projects</a></li>
+              <li><a href="/contact" className="text-gray-400 hover:text-white transition-colors" aria-label="Contact us">Contact</a></li>
             </ul>
           </div>
 
           {/* Services */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Services</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-2" role="list">
               <li className="text-gray-400">Infrastructure Development</li>
               <li className="text-gray-400">Commercial Construction</li>
               <li className="text-gray-400">Project Management</li>
@@ -35,12 +35,12 @@ export default function Footer() {
           {/* Contact Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <address className="not-italic text-gray-400">
+            <address className="not-italic text-gray-400" aria-label="Company contact information">
               <p>123 Construction Avenue</p>
               <p>Suite 100</p>
               <p>City, State 12345</p>
-              <p className="mt-2">Phone: (555) 123-4567</p>
-              <p>Email: info@elevenstarconst.com</p>
+              <p className="mt-2">Phone: <a href="tel:+15551234567" aria-label="Call us at (555) 123-4567">(555) 123-4567</a></p>
+              <p>Email: <a href="mailto:info@elevenstarconst.com" aria-label="Email us at info@elevenstarconst.com">info@elevenstarconst.com</a></p>
             </address>
           </div>
         </div>
@@ -51,8 +51,8 @@ export default function Footer() {
             © {new Date().getFullYear()} Eleven Star Construction. All rights reserved.
           </p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-            <a href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
-            <a href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+            <a href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors" aria-label="Read our privacy policy">Privacy Policy</a>
+            <a href="/terms" className="text-gray-400 hover:text-white text-sm transition-colors" aria-label="Read our terms of service">Terms of Service</a>
           </div>
         </div>
       </div>

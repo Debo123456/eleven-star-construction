@@ -1,5 +1,16 @@
 import Image from "next/image"
 
+interface Project {
+  title: string;
+  category: string;
+  image: string;
+  description: string;
+  completion: string;
+  value: string;
+  details: string[];
+  id: string;
+}
+
 export default function ProjectsPage() {
   const projects = [
     {
@@ -13,8 +24,8 @@ export default function ProjectsPage() {
         "15-mile highway expansion",
         "6 new bridge structures",
         "Advanced drainage systems",
-        "Smart traffic management"
-      ]
+        "Smart traffic management",
+      ],
     },
     {
       title: "Urban Transit Center",
@@ -58,7 +69,10 @@ export default function ProjectsPage() {
         "Pedestrian walkways"
       ]
     }
-  ]
+  ].map((project) => ({
+    ...project,
+    id: project.title.toLowerCase().replace(/\s+/g, '-'),
+  }));
 
   return (
     <main className="min-h-screen bg-white">
@@ -78,9 +92,9 @@ export default function ProjectsPage() {
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
+            {projects.map((project) => (
               <div 
-                key={index}
+                key={project.id}
                 className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
               >
                 <div className="relative h-64 w-full">
@@ -105,7 +119,7 @@ export default function ProjectsPage() {
                     <h4 className="font-semibold mb-2">Key Features:</h4>
                     <ul className="grid grid-cols-2 gap-2">
                       {project.details.map((detail, idx) => (
-                        <li key={idx} className="flex items-center text-gray-600">
+                        <li key={`${project.id}-detail-${idx}`} className="flex items-center text-gray-600">
                           <span className="w-1.5 h-1.5 bg-black rounded-full mr-2"></span>
                           {detail}
                         </li>
