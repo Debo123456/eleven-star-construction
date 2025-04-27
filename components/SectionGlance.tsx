@@ -44,7 +44,7 @@ export default function SectionGlance() {
             <CardContent>
               <p className="text-gray-600 text-center">
                 From dream homes to commercial spaces, road construction to landscaping, 
-                discover how we're building Jamaica's future, one project at a time.
+                discover how we&apos;re building Jamaica&apos;s future, one project at a time.
               </p>
               <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
                 See Projects

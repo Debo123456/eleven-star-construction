@@ -55,6 +55,7 @@ export default function QuoteButton() {
       reset()
       setOpen(false)
     } catch (error) {
+      console.error("Quote submission error:", error)
       toast.error("Failed to submit quote request. Please try again.")
     } finally {
       setIsSubmitting(false)

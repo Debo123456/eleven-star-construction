@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { Building2, Hammer, Trophy } from "lucide-react"
+import { Building2 } from "lucide-react"
 
 const services = [
   {
@@ -28,7 +28,7 @@ const services = [
       {
         title: "Land Subdivision",
         icon: "map",
-        description: "Expert land subdivision services that maximize your property's potential. We handle all aspects of the process, ensuring compliance and optimal land use for your development needs.",
+        description: "Expert land subdivision services that maximize your property&apos;s potential. We handle all aspects of the process, ensuring compliance and optimal land use for your development needs.",
       },
       {
         title: "Road Construction",
