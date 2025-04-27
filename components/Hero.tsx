@@ -22,17 +22,19 @@ export default function Hero() {
       
       {/* Content */}
       <div className="relative z-20 text-center text-white px-4 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Building Tomorrow&apos;s Infrastructure Today
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-4 text-shadow-lg">
+          Building Your Dream from Concept to Creation
         </h1>
         <p className="text-lg md:text-xl text-gray-200 mb-8 max-w-2xl mx-auto">
-          Eleven Star Construction delivers innovative engineering solutions 
-          for highways, bridges, and critical infrastructure projects across America.
+          Eleven Star Construction brings your vision to life with expert craftsmanship 
+          in residential, commercial, and industrial projects. Quality construction, 
+          delivered with precision and care.
         </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="flex flex-col sm:flex-row gap-6 justify-center mt-10 items-center">
           <Button
             size="lg"
-            className="bg-white text-black hover:bg-gray-200 transition-colors"
+            className="bg-[#0066CC] text-white hover:bg-[#0077EE] text-[1.2rem] px-8 py-6 
+            shadow-sm hover:shadow-lg transition-all duration-300 font-medium w-full sm:w-auto"
             asChild
           >
             <a href="/projects">View Our Projects</a>
@@ -40,12 +42,16 @@ export default function Hero() {
           <Button
             size="lg"
             variant="outline"
-            className="border-white text-white hover:bg-white hover:text-black transition-colors"
+            className="border-3 border-white bg-black/20 text-white hover:bg-white hover:text-black text-[1.2rem] px-8 py-6
+            shadow-sm hover:shadow-lg transition-all duration-300 font-medium w-full sm:w-auto"
             asChild
           >
             <a href="/contact">Contact Us</a>
           </Button>
         </div>
+        <p className="text-gray-200 mt-6 text-lg italic">
+          Get started with a consultation today!
+        </p>
       </div>
     </section>
   )

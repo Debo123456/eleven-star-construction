@@ -11,7 +11,6 @@ export default function Home() {
       <SectionGlance />
       <SectionWhy />
       <SectionSectors />
-      <SectionFamily />
     </>
   )
 }

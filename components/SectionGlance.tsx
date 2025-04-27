@@ -10,8 +10,8 @@ export default function SectionGlance() {
             Eleven Star Construction at a Glance
           </h2>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Eleven Star Construction brings excellence and innovation to every infrastructure project, 
-            setting new standards in the construction industry.
+            Your trusted partner in building dreams, from residential homes to commercial spaces, 
+            delivering quality construction across Jamaica.
           </p>
         </div>
         
@@ -25,8 +25,8 @@ export default function SectionGlance() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 text-center">
-                A premier construction company specializing in infrastructure development, 
-                with a commitment to quality and innovation in every project we undertake.
+                A dedicated team of local construction experts, bringing years of experience 
+                and craftsmanship to every project, big or small.
               </p>
               <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
                 Learn More
@@ -43,8 +43,8 @@ export default function SectionGlance() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 text-center">
-                From groundbreaking infrastructure developments to complex construction challenges, 
-                explore how we&apos;re building a better future.
+                From dream homes to commercial spaces, road construction to landscaping, 
+                discover how we're building Jamaica's future, one project at a time.
               </p>
               <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
                 See Projects
@@ -61,8 +61,8 @@ export default function SectionGlance() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600 text-center">
-                We&apos;re committed to delivering excellence in every project, 
-                from highways to bridges and beyond.
+                Specializing in residential and commercial construction, renovations, 
+                land subdivision, road construction, and beautiful outdoor spaces.
               </p>
               <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
                 Our Services

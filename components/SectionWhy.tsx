@@ -9,8 +9,8 @@ export default function SectionWhy() {
             Why Choose Eleven Star Construction
           </h2>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-            With over a decade of excellence in construction and infrastructure development,
-            we bring unmatched expertise and dedication to every project.
+            As your trusted local construction partner, we combine Jamaican craftsmanship 
+            with modern expertise to bring your vision to life.
           </p>
         </div>
 
@@ -21,7 +21,7 @@ export default function SectionWhy() {
             </div>
             <h3 className="text-xl font-semibold mb-2">Proven Track Record</h3>
             <p className="text-gray-400">
-              275+ successful projects completed across America, demonstrating our commitment to excellence.
+              Years of successful projects across Jamaica, building trust and delivering excellence in every community we serve.
             </p>
           </div>
 
@@ -31,7 +31,7 @@ export default function SectionWhy() {
             </div>
             <h3 className="text-xl font-semibold mb-2">Quality Assurance</h3>
             <p className="text-gray-400">
-              Industry-leading quality standards with rigorous inspection protocols ensuring lasting results.
+              We maintain the highest standards of quality, ensuring every project meets both local building codes and your expectations.
             </p>
           </div>
 
@@ -41,7 +41,7 @@ export default function SectionWhy() {
             </div>
             <h3 className="text-xl font-semibold mb-2">Timely Delivery</h3>
             <p className="text-gray-400">
-              Consistent on-time project completion through efficient project management and planning.
+              We understand the importance of deadlines and work diligently to complete your project on schedule, every time.
             </p>
           </div>
 
@@ -51,7 +51,7 @@ export default function SectionWhy() {
             </div>
             <h3 className="text-xl font-semibold mb-2">Expert Team</h3>
             <p className="text-gray-400">
-              Highly skilled professionals with decades of combined experience in construction excellence.
+              Our skilled local team brings years of experience and a deep understanding of Jamaican construction needs to every project.
             </p>
           </div>
         </div>

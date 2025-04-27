@@ -7,6 +7,7 @@ import CookieBanner from "@/components/CookieBanner" // If needed
 import { Inter } from "next/font/google"
 import Schema from "./schema"
 import Analytics from "./analytics"
+import QuoteButton from "@/components/QuoteButton"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -35,6 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main className="flex-grow">{children}</main>
         <Footer />
         <CookieBanner />
+        <QuoteButton />
       </body>
     </html>
   )
