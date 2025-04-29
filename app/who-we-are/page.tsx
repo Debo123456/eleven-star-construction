@@ -1,5 +1,4 @@
-import { Building2, Users, Star, Clock, Shield, Heart } from "lucide-react"
-import Image from "next/image"
+import { Users, Star,Shield} from "lucide-react"
 import Link from "next/link"
 
 export default function WhoWeArePage() {

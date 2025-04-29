@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Clock, Building2, Truck } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, Building2} from "lucide-react"
 
 export default function ContactPage() {
   return (
