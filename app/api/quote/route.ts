@@ -11,6 +11,13 @@ export async function POST(request: Request) {
     if (!process.env.SENDGRID_API_KEY || !process.env.SALES_TEAM_EMAIL || !process.env.FROM_EMAIL) {
       throw new Error('Missing required environment variables')
     }
+
+    console.log("Environment variables present:", {
+      apiKey: !!process.env.SENDGRID_API_KEY,
+      apiKeyLength: process.env.SENDGRID_API_KEY?.length,
+      salesEmail: process.env.SALES_TEAM_EMAIL,
+      fromEmail: process.env.FROM_EMAIL
+    });
     
     const body = await request.json()
     const { name, email, phone, service, projectDetails } = body
