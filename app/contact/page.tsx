@@ -40,8 +40,7 @@ export default function ContactPage() {
                   <Phone className="w-6 h-6 text-black" />
                   <div>
                     <h3 className="font-semibold mb-1">Phone</h3>
-                    <p className="text-gray-600">Main: (555) 123-4567</p>
-                    <p className="text-gray-600">Emergency: (555) 987-6543</p>
+                    <p className="text-gray-600">(876) 781-4420</p>
                   </div>
                 </div>
 
@@ -49,8 +48,7 @@ export default function ContactPage() {
                   <Mail className="w-6 h-6 text-black" />
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-gray-600">info@elevenstarconst.com</p>
-                    <p className="text-gray-600">projects@elevenstarconst.com</p>
+                    <p className="text-gray-600">info@elevenstarconstruction.com</p>
                   </div>
                 </div>
 
@@ -59,9 +57,9 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-semibold mb-1">Location</h3>
                     <p className="text-gray-600">
-                      123 Construction Avenue<br />
-                      Suite 100<br />
-                      City, State 12345
+                      Runaway Bay<br />
+                      St. Ann<br />
+                      Jamaica
                     </p>
                   </div>
                 </div>
@@ -78,16 +76,6 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <Truck className="w-6 h-6 text-black" />
-                  <div>
-                    <h3 className="font-semibold mb-1">Equipment Rental &amp; Service</h3>
-                    <p className="text-gray-600">
-                      24/7 Emergency Service Available<br />
-                      Rental Inquiries: (555) 234-5678
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
 
@@ -142,10 +130,12 @@ export default function ContactPage() {
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-black focus:border-transparent"
                   >
                     <option value="">Select project type</option>
-                    <option value="infrastructure">Infrastructure</option>
+                    <option value="residential">Residential Construction</option>
                     <option value="commercial">Commercial Construction</option>
-                    <option value="transportation">Transportation</option>
-                    <option value="industrial">Industrial</option>
+                    <option value="renovations">Renovations & Remodeling</option>
+                    <option value="subdivision">Land Subdivision</option>
+                    <option value="road">Road Construction</option>
+                    <option value="landscaping">Landscaping & Outdoor Living</option>
                     <option value="other">Other</option>
                   </select>
                 </div>

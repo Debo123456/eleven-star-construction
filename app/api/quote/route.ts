@@ -13,16 +13,17 @@ export async function POST(request: Request) {
     }
     
     const body = await request.json()
-    const { name, email, phone, projectDetails } = body
+    const { name, email, phone, service, projectDetails } = body
 
     const msg = {
       to: process.env.SALES_TEAM_EMAIL!, // Your sales team email
       from: process.env.FROM_EMAIL!, // Your verified sender email
-      subject: `New Quote Request from ${name}`,
+      subject: `New Quote Request from ${name} - ${service}`,
       text: `
         Name: ${name}
         Email: ${email}
         Phone: ${phone}
+        Service Requested: ${service}
         Project Details: ${projectDetails}
       `,
       html: `
@@ -30,12 +31,14 @@ export async function POST(request: Request) {
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>Service Requested:</strong> ${service}</p>
         <p><strong>Project Details:</strong></p>
         <p>${projectDetails}</p>
       `,
     }
 
     const response = await sgMail.send(msg)
+    console.log(response);
     console.log('SendGrid Response:', response[0].statusCode)
     
     if (response[0].statusCode !== 202) {

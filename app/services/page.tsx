@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Building2 } from "lucide-react"
+import QuoteButton from "@/components/QuoteButton"
 
 const services = [
   {
@@ -77,9 +78,14 @@ export default function ServicesPage() {
                       <p className="text-gray-600 text-center">
                         {service.description}
                       </p>
-                      <button className="w-full mt-6 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
-                        Get Started
-                      </button>
+                      <QuoteButton 
+                        trigger={
+                          <button className="w-full mt-6 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
+                            Get Started
+                          </button>
+                        }
+                        initialService={service.title}
+                      />
                     </CardContent>
                   </Card>
                 ))}

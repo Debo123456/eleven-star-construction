@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
 import { Building2, Hammer, Trophy } from "lucide-react"
+import Link from "next/link"
 
 export default function SectionGlance() {
   return (
@@ -28,9 +29,11 @@ export default function SectionGlance() {
                 A dedicated team of local construction experts, bringing years of experience 
                 and craftsmanship to every project, big or small.
               </p>
-              <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
-                Learn More
-              </button>
+              <Link href="/who-we-are" className="block">
+                <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
+                  Learn More
+                </button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -46,9 +49,11 @@ export default function SectionGlance() {
                 From dream homes to commercial spaces, road construction to landscaping, 
                 discover how we&apos;re building Jamaica&apos;s future, one project at a time.
               </p>
-              <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
-                See Projects
-              </button>
+              <Link href="/projects" className="block">
+                <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
+                  See Projects
+                </button>
+              </Link>
             </CardContent>
           </Card>
 
@@ -64,9 +69,11 @@ export default function SectionGlance() {
                 Specializing in residential and commercial construction, renovations, 
                 land subdivision, road construction, and beautiful outdoor spaces.
               </p>
-              <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
-                Our Services
-              </button>
+              <Link href="/services" className="block">
+                <button className="w-full mt-4 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
+                  Our Services
+                </button>
+              </Link>
             </CardContent>
           </Card>
         </div>
