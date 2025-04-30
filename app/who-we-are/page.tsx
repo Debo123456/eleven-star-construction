@@ -1,4 +1,4 @@
-import { Users, Star,Shield} from "lucide-react"
+import { Users, Star, Shield } from "lucide-react"
 import Link from "next/link"
 
 export default function WhoWeArePage() {
@@ -9,12 +9,30 @@ export default function WhoWeArePage() {
         <div className="absolute inset-0 bg-black/70" />
         <div className="relative z-10 max-w-6xl mx-auto px-4 text-center">
           <h1 className="text-5xl font-bold mb-6">
-            Building Jamaica&apos;s Future Together
+            Building Excellence Since 2005
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            A trusted name in Jamaican construction, delivering excellence through local expertise 
-            and unwavering commitment to quality.
+            A trusted name in Jamaican construction, delivering exceptional quality and 
+            craftsmanship with over 50 years of combined industry expertise.
           </p>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            {[
+              { number: "15+", label: "Years of Experience" },
+              { number: "35+", label: "Projects Completed" },
+              { number: "95%", label: "Satisfaction Rate" },
+            ].map((stat, index) => (
+              <div key={index} className="p-6">
+                <div className="text-4xl font-bold text-black mb-2">{stat.number}</div>
+                <div className="text-gray-600 font-medium">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -24,42 +42,44 @@ export default function WhoWeArePage() {
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold mb-4">Our Story</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Eleven Star Construction has deep roots in the Jamaican construction industry. 
-              We&apos;ve built our reputation on trust, quality, and a deep understanding of 
-              local construction needs.
+              Since 2005, Eleven Star Quality Construction has been setting the standard 
+              for excellence in Jamaica&apos;s construction industry. With over 50 years of 
+              combined experience, our team brings unparalleled expertise to every project.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 items-center mt-12">
             <div className="space-y-6">
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-2xl font-semibold mb-3">Local Expertise</h3>
+              <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-shadow duration-300">
+                <h3 className="text-2xl font-semibold mb-3">Full-Service Excellence</h3>
                 <p className="text-gray-600">
-                  Our team brings years of experience in Jamaican construction, understanding 
-                  the unique challenges and opportunities of our local environment.
+                  As a full-service construction company, we specialize in both residential 
+                  and commercial projects, bringing the same level of dedication and expertise 
+                  to every build.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-2xl font-semibold mb-3">Comprehensive Services</h3>
+              <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-shadow duration-300">
+                <h3 className="text-2xl font-semibold mb-3">Expert Team</h3>
                 <p className="text-gray-600">
-                  From residential homes to commercial spaces, road construction to landscaping, 
-                  we offer end-to-end construction solutions.
+                  Our team of construction professionals brings over five decades of combined 
+                  experience, ensuring your project benefits from deep industry knowledge and 
+                  proven expertise.
                 </p>
               </div>
             </div>
             <div className="space-y-6">
-              <div className="bg-white p-6 rounded-lg shadow-md">
+              <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-shadow duration-300">
                 <h3 className="text-2xl font-semibold mb-3">Quality Commitment</h3>
                 <p className="text-gray-600">
-                  Every project is executed with precision and care, ensuring the highest 
-                  standards of construction quality and safety.
+                  With a 95% client satisfaction rate, our commitment to quality workmanship 
+                  and exceptional customer service is evident in every project we complete.
                 </p>
               </div>
-              <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-2xl font-semibold mb-3">Customer Focus</h3>
+              <div className="bg-white p-6 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-shadow duration-300">
+                <h3 className="text-2xl font-semibold mb-3">Proven Track Record</h3>
                 <p className="text-gray-600">
-                  We work closely with our clients, turning their visions into reality while 
-                  providing transparent communication throughout the process.
+                  Having successfully completed over 35 major projects, we have the experience 
+                  and capability to handle any construction challenge with confidence.
                 </p>
               </div>
             </div>
@@ -75,22 +95,22 @@ export default function WhoWeArePage() {
             {[
               {
                 icon: <Shield className="w-8 h-8" />,
-                title: "Quality",
-                description: "Unwavering commitment to construction excellence and durability"
+                title: "Quality Craftsmanship",
+                description: "Every project is executed with precision, using the finest materials and techniques"
               },
               {
                 icon: <Users className="w-8 h-8" />,
-                title: "Community",
-                description: "Building relationships while we build structures"
+                title: "Client Partnership",
+                description: "We work closely with our clients, ensuring their vision becomes reality"
               },
               {
                 icon: <Star className="w-8 h-8" />,
-                title: "Excellence",
-                description: "Striving for perfection in every project we undertake"
+                title: "Proven Excellence",
+                description: "Our track record of successful projects speaks to our commitment to excellence"
               },
             ].map((value, index) => (
-              <div key={index} className="text-center p-6 bg-white rounded-lg shadow-md">
-                <div className="w-16 h-16 mx-auto mb-4 bg-black rounded-full flex items-center justify-center text-white">
+              <div key={index} className="text-center p-6 bg-white rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-all duration-300">
+                <div className="w-16 h-16 mx-auto mb-4 bg-brand-green/10 rounded-xl flex items-center justify-center text-brand-green">
                   {value.icon}
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
@@ -106,10 +126,10 @@ export default function WhoWeArePage() {
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-3xl font-bold mb-4">Ready to Start Your Project?</h2>
           <p className="text-gray-300 mb-8">
-            Let&apos;s work together to bring your construction vision to life.
+            From custom homes to commercial buildings, we have the expertise to bring your vision to life.
           </p>
           <Link href="/contact">
-            <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-300">
+            <button className="bg-brand-green text-white px-8 py-3 rounded-xl font-semibold hover:bg-brand-green-light transition-all duration-300 shadow-[0_4px_10px_-2px_rgba(0,166,81,0.3)] hover:shadow-[0_6px_20px_-2px_rgba(0,166,81,0.4)]">
               Contact Us Today
             </button>
           </Link>

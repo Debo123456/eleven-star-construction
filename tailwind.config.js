@@ -53,6 +53,11 @@ module.exports = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			brand: {
+  				green: '#00A651',
+  				'green-light': '#00C561',
+  				'green-dark': '#008542',
   			}
   		},
   		keyframes: {
@@ -71,12 +76,41 @@ module.exports = {
   				to: {
   					height: '0'
   				}
+  			},
+  			'pulse-subtle': {
+  				'0%, 100%': { opacity: '0.5' },
+  				'50%': { opacity: '0.3' }
+  			},
+  			'glow-subtle': {
+  				'0%, 100%': { 
+  					opacity: '0.8',
+  					transform: 'scale(1)'
+  				},
+  				'50%': { 
+  					opacity: '0.4',
+  					transform: 'scale(1.05)'
+  				}
+  			},
+  			'blueprint-pan': {
+  				'0%, 100%': { backgroundPosition: '0% 0%' },
+  				'50%': { backgroundPosition: '100% 100%' }
+  			},
+  			'gradient-shift': {
+  				'0%, 100%': { opacity: '0.3' },
+  				'50%': { opacity: '0.1' }
   			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'pulse-subtle': 'pulse-subtle 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+  			'glow-subtle': 'glow-subtle 3s ease-in-out infinite',
+  			'blueprint-pan': 'blueprint-pan 30s linear infinite',
+  			'gradient-shift': 'gradient-shift 8s ease-in-out infinite'
+  		},
+  		backgroundImage: {
+  			'blueprint': "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230066CC' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\")",
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],

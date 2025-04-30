@@ -9,13 +9,13 @@ export default function Header() {
 
   return (
     <header className="bg-white shadow-sm relative">
-      <div className="max-w-6xl mx-auto px-4 py-4">
+      <div className="max-w-6xl mx-auto px-3 py-3">
         <div className="flex justify-between items-center">
           <Link href="/" className="flex items-center space-x-2">
             <Image
               src="/images/logo.svg"
               alt="Eleven Star Construction"
-              className="h-8 w-auto text-gray-900"
+              className="h-12 w-auto text-gray-900"
               height={32}
               width={160}
               priority

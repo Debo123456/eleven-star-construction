@@ -66,11 +66,11 @@ export default function ServicesPage() {
                 {category.services.map((service) => (
                   <Card 
                     key={service.title} 
-                    className="group transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    className="group transform transition-all duration-300 hover:scale-105 rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)]"
                   >
                     <CardHeader className="text-center">
-                      <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
-                        <Building2 className="w-8 h-8 text-gray-800" />
+                      <div className="w-16 h-16 mx-auto mb-4 bg-brand-green/10 rounded-xl flex items-center justify-center">
+                        <Building2 className="w-8 h-8 text-brand-green" />
                       </div>
                       <CardTitle className="text-2xl text-gray-900">{service.title}</CardTitle>
                     </CardHeader>
@@ -80,7 +80,7 @@ export default function ServicesPage() {
                       </p>
                       <QuoteButton 
                         trigger={
-                          <button className="w-full mt-6 text-gray-900 hover:text-white font-semibold transition-colors duration-300 py-2 border border-gray-900 rounded-lg hover:bg-gray-900">
+                          <button className="w-full mt-6 text-brand-green hover:text-white font-semibold transition-all duration-300 py-2 border border-brand-green rounded-xl hover:bg-brand-green shadow-[0_2px_10px_-2px_rgba(0,166,81,0.2)] hover:shadow-[0_4px_15px_-2px_rgba(0,166,81,0.3)]">
                             Get Started
                           </button>
                         }

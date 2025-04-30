@@ -1,12 +1,13 @@
-import Image from "next/image"
+"use client"
+import ProjectCarousel from "@/components/ProjectCarousel"
+import { motion } from "framer-motion"
 
 interface Project {
   title: string;
   category: string;
-  image: string;
+  images: string[];
   description: string;
   completion: string;
-  value: string;
   details: string[];
   id: string;
 }
@@ -14,59 +15,92 @@ interface Project {
 export default function ProjectsPage() {
   const projects: Project[] = [
     {
-      title: "Interstate Highway Expansion",
-      category: "Infrastructure",
-      image: "https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&q=80",
-      description: "Major interstate expansion project improving regional connectivity with advanced engineering solutions.",
+      title: "Driveway Asphalting",
+      category: "Road Construction",
+      images: [
+        "/images/projects/road-construction/driveway-1.webp",
+        "/images/projects/road-construction/driveway-2.webp",
+        "/images/projects/road-construction/driveway-3.webp",
+        "/images/projects/road-construction/driveway-4.webp",
+        "/images/projects/road-construction/driveway-5.webp",
+        "/images/projects/road-construction/driveway-6.webp",
+        "/images/projects/road-construction/driveway-7.webp"
+      ],
+      description: "Complete driveway transformation project featuring professional asphalt paving, proper drainage solutions, and expert finishing work. Showcasing our commitment to quality residential road construction.",
       completion: "2023",
-      value: "$85M",
       details: [
-        "15-mile highway expansion",
-        "6 new bridge structures",
-        "Advanced drainage systems",
-        "Smart traffic management",
+        "Professional grade asphalt installation",
+        "Proper drainage engineering",
+        "Edge treatment and finishing",
+        "Long-lasting durability coating"
       ],
     },
     {
-      title: "Urban Transit Center",
-      category: "Transportation",
-      image: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?auto=format&fit=crop&q=80",
-      description: "State-of-the-art transit hub connecting multiple transportation modes in the heart of downtown.",
+      title: "Luxury Residential Complex",
+      category: "Residential Construction",
+      images: [
+        "/images/projects/residential-construction/luxury-1.webp",
+        "/images/projects/residential-construction/luxury-2.webp",
+        "/images/projects/residential-construction/luxury-3.webp",
+        "/images/projects/residential-construction/luxury-4.webp",
+      ],
+      description: "Multi-unit residential development showcasing modern architectural design, premium finishes, and attention to detail in every aspect of construction.",
       completion: "2023",
-      value: "$120M",
       details: [
-        "Multi-modal transit integration",
-        "Sustainable design features",
-        "Smart building technology",
-        "Public space development"
+        "Custom architectural design",
+        "Premium exterior finishes",
+        "Modern amenity integration",
+        "Energy-efficient construction"
       ]
     },
     {
-      title: "Corporate Campus Development",
-      category: "Commercial",
-      image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80",
-      description: "Modern corporate campus featuring sustainable design and cutting-edge amenities.",
+      title: "Modern Residential Complex",
+      category: "Residential Construction",
+      images: [
+        "/images/projects/residential-construction/modern-1.webp",
+        "/images/projects/residential-construction/modern-2.webp",
+        "/images/projects/residential-construction/modern-3.webp"
+      ],
+      description: "Contemporary residential development featuring clean lines, open spaces, and innovative design elements that blend functionality with aesthetic appeal.",
       completion: "2022",
-      value: "$95M",
       details: [
-        "500,000 sq ft development",
-        "LEED Gold certification",
-        "Smart office integration",
-        "Parking structure"
+        "Contemporary design elements",
+        "Open-concept layouts",
+        "High-end material selection",
+        "Integrated outdoor spaces"
       ]
     },
     {
-      title: "Harbor Bridge Reconstruction",
-      category: "Infrastructure",
-      image: "https://images.unsplash.com/photo-1513828583688-c52646db42da?auto=format&fit=crop&q=80",
-      description: "Critical infrastructure project replacing aging bridge structure with modern design.",
+      title: "Home Renovation Project",
+      category: "Renovations & Remodeling",
+      images: [
+        "/images/projects/renovations-remodeling/renovations-1.webp"
+      ],
+      description: "Comprehensive home renovation showcasing our ability to transform existing spaces into modern, functional living areas while maintaining structural integrity.",
       completion: "2022",
-      value: "$150M",
       details: [
-        "Cable-stayed design",
-        "Seismic reinforcement",
-        "LED lighting system",
-        "Pedestrian walkways"
+        "Complete interior redesign",
+        "Structural improvements",
+        "Modern fixture installation",
+        "Custom finishing work"
+      ]
+    },
+    {
+      title: "Commercial Building Development",
+      category: "Commercial Construction",
+      images: [
+        "/images/projects/commercial-construction/commercial-1.webp",
+        "/images/projects/commercial-construction/commercial-2.webp",
+        "/images/projects/commercial-construction/commercial-3.webp",
+        "/images/projects/commercial-construction/commercial-4.webp",
+      ],
+      description: "State-of-the-art commercial facility featuring modern design elements, efficient space utilization, and sustainable building practices.",
+      completion: "2023",
+      details: [
+        "Modern commercial design",
+        "Energy-efficient systems",
+        "Professional space planning",
+        "Premium building materials"
       ]
     }
   ].map((project) => ({
@@ -77,39 +111,50 @@ export default function ProjectsPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[400px] flex items-center justify-center bg-black text-white">
+      <motion.section 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        className="relative h-[400px] flex items-center justify-center bg-black text-white"
+      >
         <div className="absolute inset-0 bg-gradient-to-r from-black to-gray-900" />
-        <div className="relative z-10 text-center px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="relative z-10 text-center px-4"
+        >
           <h1 className="text-5xl font-bold mb-4">Featured Projects</h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
             Showcasing Eleven Star Construction&apos;s commitment to excellence 
             through our portfolio of transformative projects.
           </p>
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* Projects Grid */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project) => (
-              <div 
+            {projects.map((project, index) => (
+              <motion.div 
                 key={project.id}
-                className="group bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ 
+                  duration: 0.5,
+                  delay: index * 0.2 // Stagger effect
+                }}
+                className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-all duration-300"
               >
-                <div className="relative h-64 w-full">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
+                <div className="relative">
+                  <ProjectCarousel 
+                    images={project.images} 
+                    title={project.title}
                   />
-                  <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
-                  <div className="absolute top-4 left-4 bg-black text-white px-3 py-1 rounded">
+                  <div className="absolute top-4 left-4 z-10 bg-brand-green text-white px-4 py-1.5 rounded-xl shadow-lg">
                     {project.category}
-                  </div>
-                  <div className="absolute top-4 right-4 bg-white text-black px-3 py-1 rounded">
-                    {project.value}
                   </div>
                 </div>
                 <div className="p-6">
@@ -126,32 +171,39 @@ export default function ProjectsPage() {
                       ))}
                     </ul>
                   </div>
-                  <div className="flex justify-between items-center pt-4 border-t border-gray-200">
+                  <div className="pt-4 border-t border-gray-200 text-center">
                     <span className="text-gray-500">Completed: {project.completion}</span>
-                    <button className="text-black font-semibold hover:underline">
-                      View Details →
-                    </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="bg-black text-white py-16">
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="bg-black text-white py-16"
+      >
         <div className="max-w-4xl mx-auto text-center px-4">
           <h2 className="text-3xl font-bold mb-4">Ready to Build Something Great?</h2>
           <p className="text-gray-300 mb-8">
             Let Eleven Star Construction bring your vision to life with our proven expertise 
             and commitment to excellence.
           </p>
-          <button className="bg-white text-black px-8 py-3 rounded-lg font-semibold hover:bg-gray-200 transition-all duration-300 transform hover:scale-105">
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-brand-green text-white px-8 py-3 rounded-xl font-semibold hover:bg-brand-green-light transition-all duration-300 shadow-[0_4px_10px_-2px_rgba(0,166,81,0.3)] hover:shadow-[0_6px_20px_-2px_rgba(0,166,81,0.4)]"
+          >
             Start Your Project
-          </button>
+          </motion.button>
         </div>
-      </section>
+      </motion.section>
     </main>
   )
 }       
