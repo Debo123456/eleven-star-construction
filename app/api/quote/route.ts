@@ -22,8 +22,13 @@ export async function POST(request: Request) {
     const body = await request.json()
     const { name, email, phone, service, projectDetails } = body
 
+    const emailAddresses = process.env.SALES_TEAM_EMAIL!.split(',').map(email => email.trim());
+    const primaryEmail = emailAddresses[0];
+    const ccEmails = emailAddresses.slice(1);
+
     const msg = {
-      to: process.env.SALES_TEAM_EMAIL!, // Your sales team email
+      to: primaryEmail, // Primary recipient
+      cc: ccEmails.length > 0 ? ccEmails : undefined, // CC recipients if any
       from: process.env.FROM_EMAIL!, // Your verified sender email
       subject: `New Quote Request from ${name} - ${service}`,
       text: `
@@ -53,8 +58,8 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true })
-  } catch (error) {
-    console.error("Error sending email:", error)
+  } catch (error: any) {
+    console.error("Error sending email:", error.response?.body || error)
     // Return more detailed error information
     return NextResponse.json(
       { 
