@@ -58,8 +58,17 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ success: true })
-  } catch (error: any) {
-    console.error("Error sending email:", error.response?.body || error)
+  } catch (error: unknown) {
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'response' in error &&
+      (error as { response?: { body?: unknown } }).response
+    ) {
+      console.error("Error sending email:", (error as any).response.body || error);
+    } else {
+      console.error("Error sending email:", error);
+    }
     // Return more detailed error information
     return NextResponse.json(
       { 
