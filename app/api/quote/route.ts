@@ -59,13 +59,14 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true })
   } catch (error: unknown) {
+    type SendGridError = { response?: { body?: unknown } };
     if (
       typeof error === 'object' &&
       error !== null &&
-      'response' in error &&
-      (error as { response?: { body?: unknown } }).response
+      'response' in error
     ) {
-      console.error("Error sending email:", (error as any).response.body || error);
+      const sgError = error as SendGridError;
+      console.error("Error sending email:", sgError.response?.body || error);
     } else {
       console.error("Error sending email:", error);
     }
