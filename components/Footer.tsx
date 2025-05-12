@@ -42,7 +42,7 @@ export default function Footer() {
               <p>St. Ann</p>
               <p>Jamaica</p>
               <p className="mt-2">Phone: <a href="tel:+18767814420" aria-label="Call us at (876) 781-4420">(876) 781-4420</a></p>
-              <p>Email: <a href="mailto:info@elevenstarconst.com" aria-label="Email us at info@elevenstarconst.com">info@elevenstarconst.com</a></p>
+              <p>Email: <a href="mailto:elevenstarconstruction@gmail.com" aria-label="Email us at elevenstarconstruction@gmail.com">elevenstarconstruction@gmail.com</a></p>
             </address>
           </div>
         </div>

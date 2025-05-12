@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Phone, MapPin, Clock, Building2 } from "lucide-react"
+import { Mail, Phone, MapPin, Clock, Building2, MessageCircle } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
@@ -79,15 +79,17 @@ export default function ContactPage() {
                 </p>
               </div>
               
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <Building2 className="w-6 h-6 text-brand-green" />
-                  <div>
-                    <h3 className="font-semibold mb-1">Main Office</h3>
-                    <p className="text-gray-600">Eleven Star Construction Headquarters</p>
-                  </div>
+              {/*
+              <div className="flex items-start space-x-4">
+                <Building2 className="w-6 h-6 text-brand-green" />
+                <div>
+                  <h3 className="font-semibold mb-1">Main Office</h3>
+                  <p className="text-gray-600">Eleven Star Construction Headquarters</p>
                 </div>
-                
+              </div>
+              */}
+              
+              <div className="space-y-6">
                 <div className="flex items-start space-x-4">
                   <Phone className="w-6 h-6 text-brand-green" />
                   <div>
@@ -100,7 +102,7 @@ export default function ContactPage() {
                   <Mail className="w-6 h-6 text-brand-green" />
                   <div>
                     <h3 className="font-semibold mb-1">Email</h3>
-                    <p className="text-gray-600">info@elevenstarconstruction.com</p>
+                    <p className="text-gray-600">elevenstarconstruction@gmail.com</p>
                   </div>
                 </div>
 
@@ -125,6 +127,35 @@ export default function ContactPage() {
                       Saturday: By Appointment<br />
                       Sunday: Closed
                     </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-4">
+                  {/* WhatsApp Icon (SVG for brand accuracy) */}
+                  <span className="w-6 h-6 text-green-500 flex items-center justify-center">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      className="w-6 h-6"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path d="M12.04 2.003a9.94 9.94 0 0 0-8.89 14.36l-1.13 4.13a1 1 0 0 0 1.22 1.22l4.13-1.13a9.94 9.94 0 1 0 4.67-18.58zm0 2a7.94 7.94 0 1 1 0 15.88 7.94 7.94 0 0 1 0-15.88zm-6.13 14.1.7-2.56a1 1 0 0 0-.13-.86A7.94 7.94 0 1 1 12.04 20a7.94 7.94 0 0 1-6.13-1.87zm10.13-4.1c-.13-.07-.77-.38-1.1-.53-.29-.13-.5-.13-.7.13-.2.26-.8.93-.98 1.12-.18.2-.36.2-.66.07-.29-.13-1.23-.45-2.34-1.44-.86-.77-1.44-1.7-1.61-1.99-.17-.29-.02-.45.12-.58.13-.13.29-.33.43-.5.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.13-.7-1.68-.96-2.3-.25-.6-.5-.52-.7-.53-.18-.01-.39-.01-.6-.01-.21 0-.55.08-.84.38-.29.3-1.1 1.08-1.1 2.63 0 1.55 1.1 3.05 2.1 4.13 1.01 1.08 2.36 2.13 3.8 2.13 1.44 0 2.13-.92 2.42-1.3.29-.38.29-.7.2-.92-.09-.22-.34-.35-.47-.42z"/>
+                    </svg>
+                  </span>
+                  <div>
+                    <h3 className="font-semibold mb-1">WhatsApp</h3>
+                    <a
+                      href="https://wa.me/18767814420"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-green-600 hover:underline"
+                      aria-label="Chat with us on WhatsApp"
+                    >
+                      Message us on WhatsApp
+                    </a>
+                    <p className="text-gray-600 text-xs">+1 (876) 781-4420</p>
                   </div>
                 </div>
 
