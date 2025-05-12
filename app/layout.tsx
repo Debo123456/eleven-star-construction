@@ -8,6 +8,9 @@ import { Inter } from "next/font/google"
 import Schema from "./schema"
 import Analytics from "./analytics"
 import QuoteButton from "@/components/QuoteButton"
+import SiteLoader from "@/components/SiteLoader"
+import RulerProgressBar from "@/components/RulerProgressBar"
+import RulerProgressBarWrapper from "@/components/RulerProgressBarWrapper"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -32,7 +35,8 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={inter.className}>
         <Analytics />
         <Schema />
-        <Header />
+        <RulerProgressBarWrapper />
+        <SiteLoader />
         <main className="flex-grow">{children}</main>
         <Footer />
         <CookieBanner />
