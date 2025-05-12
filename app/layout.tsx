@@ -1,7 +1,6 @@
 import "./globals.css"
 import type { Metadata } from "next"
 import { ReactNode } from "react"
-import Header from "@/components/Header"
 import Footer from "@/components/Footer"
 import CookieBanner from "@/components/CookieBanner" // If needed
 import { Inter } from "next/font/google"
@@ -9,7 +8,6 @@ import Schema from "./schema"
 import Analytics from "./analytics"
 import QuoteButton from "@/components/QuoteButton"
 import SiteLoader from "@/components/SiteLoader"
-import RulerProgressBar from "@/components/RulerProgressBar"
 import RulerProgressBarWrapper from "@/components/RulerProgressBarWrapper"
 
 const inter = Inter({ subsets: ["latin"] })
