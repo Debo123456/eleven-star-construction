@@ -1,6 +1,6 @@
 "use client"
 
-import { Mail, Phone, MapPin, Clock, Building2, MessageCircle } from "lucide-react"
+import { Mail, Phone, MapPin, Clock } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
