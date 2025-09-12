@@ -1,0 +1,124 @@
+[
+  {
+    "id": "driveway-asphalting",
+    "title": "Driveway Asphalting",
+    "category": "Road Construction",
+    "images": [
+      "/images/projects/road-construction/driveway-1.webp",
+      "/images/projects/road-construction/driveway-2.webp",
+      "/images/projects/road-construction/driveway-3.webp",
+      "/images/projects/road-construction/driveway-4.webp",
+      "/images/projects/road-construction/driveway-5.webp",
+      "/images/projects/road-construction/driveway-6.webp",
+      "/images/projects/road-construction/driveway-7.webp"
+    ],
+    "description": "Complete driveway transformation project featuring professional asphalt paving, proper drainage solutions, and expert finishing work. Showcasing our commitment to quality residential road construction.",
+    "completion": "2023",
+    "details": [
+      "Professional grade asphalt installation",
+      "Proper drainage engineering",
+      "Edge treatment and finishing",
+      "Long-lasting durability coating"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "luxury-residential-complex",
+    "title": "Luxury Residential Complex",
+    "category": "Residential Construction",
+    "images": [
+      "/images/projects/residential-construction/luxury-1.webp",
+      "/images/projects/residential-construction/luxury-2.webp",
+      "/images/projects/residential-construction/luxury-3.webp",
+      "/images/projects/residential-construction/luxury-4.webp"
+    ],
+    "description": "Multi-unit residential development showcasing modern architectural design, premium finishes, and attention to detail in every aspect of construction.",
+    "completion": "2027",
+    "details": [
+      "Custom architectural design",
+      "Premium exterior finishes",
+      "Modern amenity integration",
+      "Energy-efficient construction"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2025-09-12T19:37:45.191Z"
+  },
+  {
+    "id": "modern-residential-complex",
+    "title": "Modern Residential Complex",
+    "category": "Residential Construction",
+    "images": [
+      "/images/projects/residential-construction/modern-1.webp",
+      "/images/projects/residential-construction/modern-2.webp",
+      "/images/projects/residential-construction/modern-3.webp"
+    ],
+    "description": "Contemporary residential development featuring clean lines, open spaces, and innovative design elements that blend functionality with aesthetic appeal.",
+    "completion": "2022",
+    "details": [
+      "Contemporary design elements",
+      "Open-concept layouts",
+      "High-end material selection",
+      "Integrated outdoor spaces"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "home-renovation-project",
+    "title": "Home Renovation Project",
+    "category": "Renovations & Remodeling",
+    "images": [
+      "/images/projects/renovations-remodeling/renovations-1.webp"
+    ],
+    "description": "Comprehensive home renovation showcasing our ability to transform existing spaces into modern, functional living areas while maintaining structural integrity.",
+    "completion": "2022",
+    "details": [
+      "Complete interior redesign",
+      "Structural improvements",
+      "Modern fixture installation",
+      "Custom finishing work"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "commercial-building-development",
+    "title": "Commercial Building Development",
+    "category": "Commercial Construction",
+    "images": [
+      "/images/projects/commercial-construction/commercial-1.webp",
+      "/images/projects/commercial-construction/commercial-2.webp",
+      "/images/projects/commercial-construction/commercial-3.webp",
+      "/images/projects/commercial-construction/commercial-4.webp"
+    ],
+    "description": "State-of-the-art commercial facility featuring modern design elements, efficient space utilization, and sustainable building practices.",
+    "completion": "2023",
+    "details": [
+      "Modern commercial design",
+      "Energy-efficient systems",
+      "Professional space planning",
+      "Premium building materials"
+    ],
+    "createdAt": "2024-01-01T00:00:00.000Z",
+    "updatedAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "apartment-building-development",
+    "title": "Apartment Building Development",
+    "category": "Residential Construction",
+    "description": "This is an apartment building",
+    "completion": "2025*",
+    "details": [
+      "Premium Exterior Finish",
+      "Moder Landscaping"
+    ],
+    "images": [
+      "blob:http://localhost:3000/0d7a781a-a1ce-4c3c-b61f-c13cf20984f3",
+      "blob:http://localhost:3000/1b6d2a07-e4de-4689-8d4a-cb160bc8e646",
+      "blob:http://localhost:3000/bd2e59ee-4c8e-4a6f-ab97-ef446ca8699f"
+    ],
+    "createdAt": "2025-09-12T20:11:01.116Z",
+    "updatedAt": "2025-09-12T20:11:01.116Z"
+  }
+]

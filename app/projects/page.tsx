@@ -1,6 +1,7 @@
 "use client"
 import ProjectCarousel from "@/components/ProjectCarousel"
 import { motion } from "framer-motion"
+import { useState, useEffect } from "react"
 
 interface Project {
   title: string;
@@ -10,10 +11,12 @@ interface Project {
   completion: string;
   details: string[];
   id: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-export default function ProjectsPage() {
-  const projects: Project[] = [
+// Fallback projects data (moved outside component to avoid dependency issues)
+const fallbackProjects: Project[] = [
     {
       title: "Driveway Asphalting",
       category: "Road Construction",
@@ -34,6 +37,7 @@ export default function ProjectsPage() {
         "Edge treatment and finishing",
         "Long-lasting durability coating"
       ],
+      id: "driveway-asphalting"
     },
     {
       title: "Luxury Residential Complex",
@@ -51,7 +55,8 @@ export default function ProjectsPage() {
         "Premium exterior finishes",
         "Modern amenity integration",
         "Energy-efficient construction"
-      ]
+      ],
+      id: "luxury-residential-complex"
     },
     {
       title: "Modern Residential Complex",
@@ -68,7 +73,8 @@ export default function ProjectsPage() {
         "Open-concept layouts",
         "High-end material selection",
         "Integrated outdoor spaces"
-      ]
+      ],
+      id: "modern-residential-complex"
     },
     {
       title: "Home Renovation Project",
@@ -83,7 +89,8 @@ export default function ProjectsPage() {
         "Structural improvements",
         "Modern fixture installation",
         "Custom finishing work"
-      ]
+      ],
+      id: "home-renovation-project"
     },
     {
       title: "Commercial Building Development",
@@ -101,12 +108,53 @@ export default function ProjectsPage() {
         "Energy-efficient systems",
         "Professional space planning",
         "Premium building materials"
-      ]
+      ],
+      id: "commercial-building-development"
     }
-  ].map((project) => ({
-    ...project,
-    id: project.title.toLowerCase().replace(/\s+/g, '-'),
-  }));
+  ]
+
+export default function ProjectsPage() {
+  const [projects, setProjects] = useState<Project[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        setIsLoading(true)
+        const response = await fetch('/api/projects')
+        if (response.ok) {
+          const data = await response.json()
+          setProjects(data)
+        } else {
+          // If API fails, use fallback data
+          setProjects(fallbackProjects)
+        }
+      } catch (error) {
+        console.error('Error fetching projects:', error)
+        setError('Failed to load projects')
+        // Use fallback data on error
+        setProjects(fallbackProjects)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-white">
+        <div className="flex items-center justify-center h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading projects...</p>
+          </div>
+        </div>
+      </main>
+    )
+  }
 
   return (
     <main className="min-h-screen bg-white">
@@ -132,52 +180,72 @@ export default function ProjectsPage() {
         </motion.div>
       </motion.section>
 
+      {/* Error Message */}
+      {error && (
+        <section className="py-8 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-center">
+              <p className="text-yellow-800">{error}</p>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Projects Grid */}
       <section className="py-16 px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            {projects.map((project, index) => (
-              <motion.div 
-                key={project.id}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ 
-                  duration: 0.5,
-                  delay: index * 0.2 // Stagger effect
-                }}
-                className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-all duration-300"
-              >
-                <div className="relative">
-                  <ProjectCarousel 
-                    images={project.images} 
-                    title={project.title}
-                  />
-                  <div className="absolute top-4 left-4 z-10 bg-brand-green text-white px-4 py-1.5 rounded-xl shadow-lg">
-                    {project.category}
+          {projects.length === 0 ? (
+            <div className="text-center py-12">
+              <div className="text-gray-500 mb-4">
+                <h3 className="text-lg font-medium">No projects available</h3>
+                <p className="text-sm">Check back later for new projects</p>
+              </div>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 gap-8">
+              {projects.map((project, index) => (
+                <motion.div 
+                  key={project.id}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    duration: 0.5,
+                    delay: index * 0.2 // Stagger effect
+                  }}
+                  className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-all duration-300"
+                >
+                  <div className="relative">
+                    <ProjectCarousel 
+                      images={project.images} 
+                      title={project.title}
+                    />
+                    <div className="absolute top-4 left-4 z-10 bg-brand-green text-white px-4 py-1.5 rounded-xl shadow-lg">
+                      {project.category}
+                    </div>
                   </div>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                  <p className="text-gray-600 mb-4">{project.description}</p>
-                  <div className="mb-4">
-                    <h4 className="font-semibold mb-2">Key Features:</h4>
-                    <ul className="grid grid-cols-2 gap-2">
-                      {project.details.map((detail, idx) => (
-                        <li key={`${project.id}-detail-${idx}`} className="flex items-center text-gray-600">
-                          <span className="w-1.5 h-1.5 bg-black rounded-full mr-2"></span>
-                          {detail}
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
+                    <p className="text-gray-600 mb-4">{project.description}</p>
+                    <div className="mb-4">
+                      <h4 className="font-semibold mb-2">Key Features:</h4>
+                      <ul className="grid grid-cols-2 gap-2">
+                        {project.details.map((detail, idx) => (
+                          <li key={`${project.id}-detail-${idx}`} className="flex items-center text-gray-600">
+                            <span className="w-1.5 h-1.5 bg-black rounded-full mr-2"></span>
+                            {detail}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="pt-4 border-t border-gray-200 text-center">
+                      <span className="text-gray-500">Completed: {project.completion}</span>
+                    </div>
                   </div>
-                  <div className="pt-4 border-t border-gray-200 text-center">
-                    <span className="text-gray-500">Completed: {project.completion}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
