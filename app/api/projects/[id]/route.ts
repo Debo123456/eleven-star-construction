@@ -55,11 +55,12 @@ interface Project {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const projects = await readProjects()
-    const project = projects.find((p: Project) => p.id === params.id)
+    const project = projects.find((p: Project) => p.id === id)
     
     if (!project) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 })
@@ -74,9 +75,10 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const body = await request.json()
     const { title, category, description, completion, details, images } = body
 
@@ -86,14 +88,14 @@ export async function PUT(
     }
 
     const projects = await readProjects()
-    const projectIndex = projects.findIndex((p: Project) => p.id === params.id)
+    const projectIndex = projects.findIndex((p: Project) => p.id === id)
     
     if (projectIndex === -1) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 })
     }
 
     // Check if another project with same title exists (excluding current project)
-    const existingProject = projects.find((p: Project) => p.title.toLowerCase() === title.toLowerCase() && p.id !== params.id)
+    const existingProject = projects.find((p: Project) => p.title.toLowerCase() === title.toLowerCase() && p.id !== id)
     if (existingProject) {
       return NextResponse.json({ error: 'Project with this title already exists' }, { status: 400 })
     }
@@ -121,11 +123,12 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params
     const projects = await readProjects()
-    const projectIndex = projects.findIndex((p: Project) => p.id === params.id)
+    const projectIndex = projects.findIndex((p: Project) => p.id === id)
     
     if (projectIndex === -1) {
       return NextResponse.json({ error: 'Project not found' }, { status: 404 })
