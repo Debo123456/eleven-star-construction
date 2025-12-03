@@ -4,13 +4,13 @@
     "title": "Driveway Asphalting",
     "category": "Road Construction",
     "images": [
-      "/images/projects/road-construction/driveway-1.webp",
-      "/images/projects/road-construction/driveway-2.webp",
-      "/images/projects/road-construction/driveway-3.webp",
-      "/images/projects/road-construction/driveway-4.webp",
-      "/images/projects/road-construction/driveway-5.webp",
-      "/images/projects/road-construction/driveway-6.webp",
-      "/images/projects/road-construction/driveway-7.webp"
+      "eleven-star/projects/road-construction/driveway-1",
+      "eleven-star/projects/road-construction/driveway-2",
+      "eleven-star/projects/road-construction/driveway-3",
+      "eleven-star/projects/road-construction/driveway-4",
+      "eleven-star/projects/road-construction/driveway-5",
+      "eleven-star/projects/road-construction/driveway-6",
+      "eleven-star/projects/road-construction/driveway-7"
     ],
     "description": "Complete driveway transformation project featuring professional asphalt paving, proper drainage solutions, and expert finishing work. Showcasing our commitment to quality residential road construction.",
     "completion": "2023",
@@ -28,10 +28,10 @@
     "title": "Luxury Residential Complex",
     "category": "Residential Construction",
     "images": [
-      "/images/projects/residential-construction/luxury-1.webp",
-      "/images/projects/residential-construction/luxury-2.webp",
-      "/images/projects/residential-construction/luxury-3.webp",
-      "/images/projects/residential-construction/luxury-4.webp"
+      "eleven-star/projects/residential-construction/luxury-1",
+      "eleven-star/projects/residential-construction/luxury-2",
+      "eleven-star/projects/residential-construction/luxury-3",
+      "eleven-star/projects/residential-construction/luxury-4"
     ],
     "description": "Multi-unit residential development showcasing modern architectural design, premium finishes, and attention to detail in every aspect of construction.",
     "completion": "2027",
@@ -49,9 +49,9 @@
     "title": "Modern Residential Complex",
     "category": "Residential Construction",
     "images": [
-      "/images/projects/residential-construction/modern-1.webp",
-      "/images/projects/residential-construction/modern-2.webp",
-      "/images/projects/residential-construction/modern-3.webp"
+      "eleven-star/projects/residential-construction/modern-1",
+      "eleven-star/projects/residential-construction/modern-2",
+      "eleven-star/projects/residential-construction/modern-3"
     ],
     "description": "Contemporary residential development featuring clean lines, open spaces, and innovative design elements that blend functionality with aesthetic appeal.",
     "completion": "2022",
@@ -69,7 +69,7 @@
     "title": "Home Renovation Project",
     "category": "Renovations & Remodeling",
     "images": [
-      "/images/projects/renovations-remodeling/renovations-1.webp"
+      "eleven-star/projects/renovations-remodeling/renovations-1"
     ],
     "description": "Comprehensive home renovation showcasing our ability to transform existing spaces into modern, functional living areas while maintaining structural integrity.",
     "completion": "2022",
@@ -87,10 +87,10 @@
     "title": "Commercial Building Development",
     "category": "Commercial Construction",
     "images": [
-      "/images/projects/commercial-construction/commercial-1.webp",
-      "/images/projects/commercial-construction/commercial-2.webp",
-      "/images/projects/commercial-construction/commercial-3.webp",
-      "/images/projects/commercial-construction/commercial-4.webp"
+      "eleven-star/projects/commercial-construction/commercial-1",
+      "eleven-star/projects/commercial-construction/commercial-2",
+      "eleven-star/projects/commercial-construction/commercial-3",
+      "eleven-star/projects/commercial-construction/commercial-4"
     ],
     "description": "State-of-the-art commercial facility featuring modern design elements, efficient space utilization, and sustainable building practices.",
     "completion": "2023",
@@ -104,21 +104,20 @@
     "updatedAt": "2024-01-01T00:00:00.000Z"
   },
   {
-    "id": "apartment-building-development",
-    "title": "Apartment Building Development",
-    "category": "Residential Construction",
-    "description": "This is an apartment building",
+    "id": "new-project",
+    "title": "New Project",
+    "category": "Commercial Construction",
+    "description": "This is a new project for testing cloudinary",
     "completion": "2025*",
     "details": [
-      "Premium Exterior Finish",
-      "Moder Landscaping"
+      "Feature 1",
+      "Feature 2",
+      "Feature 3"
     ],
     "images": [
-      "blob:http://localhost:3000/0d7a781a-a1ce-4c3c-b61f-c13cf20984f3",
-      "blob:http://localhost:3000/1b6d2a07-e4de-4689-8d4a-cb160bc8e646",
-      "blob:http://localhost:3000/bd2e59ee-4c8e-4a6f-ab97-ef446ca8699f"
+      "eleven-star/projects/qg3dzcynzv2a3dgjxgdx"
     ],
-    "createdAt": "2025-09-12T20:11:01.116Z",
-    "updatedAt": "2025-09-12T20:11:01.116Z"
+    "createdAt": "2025-12-02T16:27:19.212Z",
+    "updatedAt": "2025-12-02T16:34:04.697Z"
   }
 ]

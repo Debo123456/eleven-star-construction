@@ -3,14 +3,24 @@ import type { Metadata } from "next"
 import { ReactNode } from "react"
 import Footer from "@/components/Footer"
 import CookieBanner from "@/components/CookieBanner" // If needed
-import { Inter } from "next/font/google"
+import { Inter, Poppins } from "next/font/google"
 import Schema from "./schema"
 import Analytics from "./analytics"
 import QuoteButton from "@/components/QuoteButton"
 import SiteLoader from "@/components/SiteLoader"
-import RulerProgressBarWrapper from "@/components/RulerProgressBarWrapper"
+import Header from "@/components/Header"
 
-const inter = Inter({ subsets: ["latin"] })
+const inter = Inter({ 
+  subsets: ["latin"],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-inter'
+})
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-poppins'
+})
 
 export const metadata: Metadata = {
   title: "Eleven Star Construction | Expert Infrastructure Builders",
@@ -30,10 +40,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.variable} ${poppins.variable} ${inter.className}`}>
         <Analytics />
         <Schema />
-        <RulerProgressBarWrapper />
+        <Header />
         <SiteLoader />
         <main className="flex-grow">{children}</main>
         <Footer />

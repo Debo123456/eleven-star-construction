@@ -89,6 +89,7 @@ export default function QuoteButton({
       ) : (
         <Button
           onClick={() => setOpen(true)}
+          data-quote-button
           className="fixed bottom-8 right-8 z-50 bg-black text-white hover:bg-gray-800 shadow-lg"
           size="lg"
         >

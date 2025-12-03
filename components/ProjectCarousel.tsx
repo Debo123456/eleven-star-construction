@@ -3,9 +3,9 @@
 import useEmblaCarousel from 'embla-carousel-react'
 import AutoPlay from 'embla-carousel-autoplay'
 import { useState, useCallback, useEffect, useRef } from 'react'
-import Image from 'next/image'
+import CloudinaryImage from '@/components/CloudinaryImage'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 interface ProjectCarouselProps {
   images: string[]
@@ -16,11 +16,17 @@ export default function ProjectCarousel({ images, title }: ProjectCarouselProps)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalStartIndex, setModalStartIndex] = useState(0)
   
+  // Only initialize autoplay if we have images
   const autoplay = useRef(
-    AutoPlay({ playOnInit: false, stopOnInteraction: false })
+    images && images.length > 0 
+      ? AutoPlay({ playOnInit: false, stopOnInteraction: false })
+      : null
   )
   
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [autoplay.current])
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { loop: true }, 
+    autoplay.current ? [autoplay.current] : []
+  )
   const [emblaModalRef, emblaModalApi] = useEmblaCarousel({ loop: true, startIndex: modalStartIndex })
   
   const [selectedIndex, setSelectedIndex] = useState(0)
@@ -38,6 +44,10 @@ export default function ProjectCarousel({ images, title }: ProjectCarouselProps)
     if (!emblaApi) return
     onSelect()
     emblaApi.on('select', onSelect)
+    
+    return () => {
+      emblaApi.off('select', onSelect)
+    }
   }, [emblaApi, onSelect])
 
   // Sync modal carousel with selected index when opened
@@ -53,17 +63,40 @@ export default function ProjectCarousel({ images, title }: ProjectCarouselProps)
   const scrollModalNext = useCallback(() => emblaModalApi?.scrollNext(), [emblaModalApi])
 
   const handleMouseEnter = useCallback(() => {
-    autoplay.current.play()
-  }, [])
+    if (autoplay.current && emblaApi) {
+      try {
+        autoplay.current.play()
+      } catch (error) {
+        // Silently fail if autoplay isn't ready
+        console.warn('Autoplay not ready:', error)
+      }
+    }
+  }, [emblaApi])
 
   const handleMouseLeave = useCallback(() => {
-    autoplay.current.stop()
+    if (autoplay.current) {
+      try {
+        autoplay.current.stop()
+      } catch (error) {
+        // Silently fail if autoplay isn't ready
+        console.warn('Autoplay stop failed:', error)
+      }
+    }
   }, [])
 
   const openModal = useCallback((index: number) => {
     setModalStartIndex(index)
     setIsModalOpen(true)
   }, [])
+
+  // Early return if no images
+  if (!images || images.length === 0) {
+    return (
+      <div className="relative h-64 bg-gray-200 flex items-center justify-center">
+        <p className="text-gray-500">No images available</p>
+      </div>
+    )
+  }
 
   return (
     <>
@@ -80,11 +113,12 @@ export default function ProjectCarousel({ images, title }: ProjectCarouselProps)
                 className="relative h-64 flex-[0_0_100%] cursor-pointer"
                 onClick={() => openModal(index)}
               >
-                <Image
+                <CloudinaryImage
                   src={image}
                   alt={`${title} - Image ${index + 1}`}
                   fill
                   className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             ))}
@@ -132,6 +166,9 @@ export default function ProjectCarousel({ images, title }: ProjectCarouselProps)
       {/* Fullscreen Modal Carousel */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="max-w-[95vw] h-[90vh] p-0 bg-black">
+          <DialogHeader className="sr-only">
+            <DialogTitle>{title} - Image Gallery</DialogTitle>
+          </DialogHeader>
           <div className="relative h-full">
             <button
               onClick={() => setIsModalOpen(false)}
@@ -148,11 +185,13 @@ export default function ProjectCarousel({ images, title }: ProjectCarouselProps)
                     key={index}
                     className="relative w-full flex-[0_0_100%] h-full"
                   >
-                    <Image
+                    <CloudinaryImage
                       src={image}
                       alt={`${title} - Image ${index + 1}`}
                       fill
                       className="object-contain"
+                      sizes="95vw"
+                      quality="auto:best"
                     />
                   </div>
                 ))}

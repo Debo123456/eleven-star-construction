@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import ProjectForm from '@/components/ProjectForm'
-import Image from 'next/image'
+import CloudinaryImage from '@/components/CloudinaryImage'
 
 interface Project {
   id: string;
@@ -192,11 +192,12 @@ export default function AdminDashboard() {
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="relative h-48">
                     {project.images.length > 0 ? (
-                      <Image
+                      <CloudinaryImage
                         src={project.images[0]}
                         alt={project.title}
                         fill
                         className="object-cover"
+                        sizes="(max-width: 768px) 100vw, 33vw"
                       />
                     ) : (
                       <div className="w-full h-full bg-gray-200 flex items-center justify-center">

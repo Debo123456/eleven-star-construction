@@ -4,7 +4,7 @@ import RulerProgressBar from "./RulerProgressBar"
 import Header from "./Header"
 
 const RulerProgressBarWrapper = () => {
-  const navRef = useRef<HTMLDivElement>(null)
+  const navRef = useRef<HTMLElement>(null)
   const [showRuler, setShowRuler] = useState(false)
 
   useEffect(() => {
@@ -21,9 +21,7 @@ const RulerProgressBarWrapper = () => {
 
   return (
     <>
-      <div ref={navRef}>
-        <Header />
-      </div>
+      <Header ref={navRef} />
       <RulerProgressBar show={showRuler} />
     </>
   )

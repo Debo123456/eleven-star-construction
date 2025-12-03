@@ -1,11 +1,14 @@
 "use client"
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
-import { X, Upload, Plus, Trash2 } from 'lucide-react'
+import { X, Upload, Plus, Trash2, Cloud, AlertCircle } from 'lucide-react'
+import { CldUploadWidget } from 'next-cloudinary'
+import CloudinaryImage from '@/components/CloudinaryImage'
+import { isCloudinaryEnabled } from '@/lib/cloudinary'
 import Image from 'next/image'
 
 interface Project {
@@ -46,7 +49,7 @@ export default function ProjectForm({ project, onSubmit, onCancel }: ProjectForm
   })
   
   const [isUploading, setIsUploading] = useState(false)
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const cloudinaryEnabled = isCloudinaryEnabled()
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({
@@ -81,30 +84,16 @@ export default function ProjectForm({ project, onSubmit, onCancel }: ProjectForm
     }
   }
 
-  const handleImageUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = event.target.files
-    if (!files) return
-
-    setIsUploading(true)
-    try {
-      // In a real application, you would upload to a cloud service like AWS S3, Cloudinary, etc.
-      // For now, we'll simulate the upload and use placeholder URLs
-      const uploadedImages = Array.from(files).map(file => {
-        // Create a preview URL for the uploaded file
-        const previewUrl = URL.createObjectURL(file)
-        return previewUrl
-      })
-
+  // Handle Cloudinary upload success
+  const handleCloudinaryUpload = useCallback((result: any) => {
+    if (result.event === 'success') {
+      const publicId = result.info.public_id
       setFormData(prev => ({
         ...prev,
-        images: [...prev.images, ...uploadedImages]
+        images: [...prev.images, publicId]
       }))
-    } catch (error) {
-      console.error('Error uploading images:', error)
-    } finally {
-      setIsUploading(false)
     }
-  }
+  }, [])
 
   const removeImage = (index: number) => {
     const newImages = formData.images.filter((_, i) => i !== index)
@@ -131,6 +120,11 @@ export default function ProjectForm({ project, onSubmit, onCancel }: ProjectForm
   }
 
   const isFormValid = formData.title && formData.category && formData.description && formData.completion
+
+  // Check if an image is a Cloudinary public ID or a local path
+  const isCloudinaryImage = (src: string) => {
+    return !src.startsWith('/') && !src.startsWith('http') && !src.startsWith('blob:')
+  }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -241,54 +235,126 @@ export default function ProjectForm({ project, onSubmit, onCancel }: ProjectForm
           Project Images
         </label>
         
-        <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-          <input
-            ref={fileInputRef}
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={handleImageUpload}
-            className="hidden"
-          />
-          <Upload className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-600 mb-2">
-            {isUploading ? 'Uploading...' : 'Click to upload images or drag and drop'}
-          </p>
-          <p className="text-sm text-gray-500">PNG, JPG, WEBP up to 10MB each</p>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => fileInputRef.current?.click()}
-            disabled={isUploading}
-            className="mt-4"
+        {/* Cloudinary Upload Widget */}
+        {cloudinaryEnabled ? (
+          <CldUploadWidget
+            uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || 'ml_default'}
+            options={{
+              sources: ['local', 'url', 'camera'],
+              multiple: true,
+              folder: 'eleven-star/projects',
+              clientAllowedFormats: ['png', 'jpeg', 'jpg', 'webp'],
+              maxFileSize: 10000000, // 10MB
+              // Use inline mode to avoid z-index issues with dialogs
+              showAdvancedOptions: false,
+              singleUploadAutoClose: false,
+              styles: {
+                palette: {
+                  window: "#FFFFFF",
+                  windowBorder: "#90A0B3",
+                  tabIcon: "#00A651",
+                  menuIcons: "#5A616A",
+                  textDark: "#000000",
+                  textLight: "#FFFFFF",
+                  link: "#00A651",
+                  action: "#00A651",
+                  inactiveTabIcon: "#0E2F5A",
+                  error: "#F44235",
+                  inProgress: "#00A651",
+                  complete: "#20B832",
+                  sourceBg: "#E4EBF1"
+                },
+                frame: {
+                  background: "rgba(0,0,0,0.8)"
+                }
+              }
+            }}
+            onSuccess={handleCloudinaryUpload}
+            onOpen={() => {
+              // Add class to body to increase z-index of Cloudinary widget
+              document.body.classList.add('cloudinary-widget-open')
+            }}
+            onClose={() => {
+              document.body.classList.remove('cloudinary-widget-open')
+            }}
           >
-            {isUploading ? 'Uploading...' : 'Choose Images'}
-          </Button>
-        </div>
+            {({ open }) => (
+              <div 
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  open()
+                }}
+                className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center cursor-pointer hover:border-brand-green hover:bg-gray-50 transition-colors"
+              >
+                <Cloud className="h-12 w-12 text-brand-green mx-auto mb-4" />
+                <p className="text-gray-600 mb-2 font-medium">
+                  Click to upload images to Cloudinary
+                </p>
+                <p className="text-sm text-gray-500">PNG, JPG, WEBP up to 10MB each</p>
+                <p className="text-xs text-emerald-600 mt-2">
+                  ✓ Images stored securely in the cloud
+                </p>
+              </div>
+            )}
+          </CldUploadWidget>
+        ) : (
+          <div className="border-2 border-dashed border-amber-300 bg-amber-50 rounded-lg p-6 text-center">
+            <AlertCircle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+            <p className="text-amber-800 font-medium mb-2">
+              Cloudinary Not Configured
+            </p>
+            <p className="text-sm text-amber-700">
+              Please set NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME in your environment variables to enable image uploads.
+            </p>
+            <p className="text-xs text-amber-600 mt-2">
+              See documentation for setup instructions.
+            </p>
+          </div>
+        )}
 
         {/* Image Preview */}
         {formData.images.length > 0 && (
           <div className="mt-4">
-            <h4 className="text-sm font-medium text-gray-700 mb-2">Uploaded Images</h4>
+            <h4 className="text-sm font-medium text-gray-700 mb-2">
+              Uploaded Images ({formData.images.length})
+            </h4>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {formData.images.map((image, index) => (
-                <Card key={index} className="relative overflow-hidden">
+                <Card key={index} className="relative overflow-hidden group">
                   <div className="aspect-square relative">
-                    <Image
-                      src={image}
-                      alt={`Project image ${index + 1}`}
-                      fill
-                      className="object-cover"
-                    />
+                    {isCloudinaryImage(image) ? (
+                      <CloudinaryImage
+                        src={image}
+                        alt={`Project image ${index + 1}`}
+                        fill
+                        className="object-cover"
+                        sizes="200px"
+                      />
+                    ) : (
+                      <Image
+                        src={image}
+                        alt={`Project image ${index + 1}`}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors" />
                     <Button
                       type="button"
                       variant="outline"
                       size="sm"
                       onClick={() => removeImage(index)}
-                      className="absolute top-2 right-2 bg-white/80 hover:bg-white text-red-600 hover:text-red-700 p-1 h-8 w-8"
+                      className="absolute top-2 right-2 bg-white/90 hover:bg-white text-red-600 hover:text-red-700 p-1 h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity"
                     >
                       <X className="h-4 w-4" />
                     </Button>
+                    {isCloudinaryImage(image) && (
+                      <div className="absolute bottom-2 left-2 bg-emerald-500 text-white text-xs px-2 py-1 rounded flex items-center">
+                        <Cloud className="h-3 w-3 mr-1" />
+                        Cloud
+                      </div>
+                    )}
                   </div>
                 </Card>
               ))}

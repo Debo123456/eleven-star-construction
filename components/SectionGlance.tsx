@@ -6,42 +6,60 @@ import { motion } from "framer-motion"
 
 export default function SectionGlance() {
   return (
-    <section className="py-16 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-6xl mx-auto px-4">
+    <section className="py-20 md:py-28 bg-white relative overflow-hidden">
+      {/* Micro-brand pattern overlay */}
+      <div className="absolute inset-0 bg-construction-grid opacity-100 pointer-events-none" />
+      
+      <div className="max-w-6xl mx-auto px-6 md:px-8 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-brand-green-dark to-brand-green">
-            Eleven Star Construction at a Glance
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 leading-tight uppercase tracking-premium">
+            <span className="inline-block relative pb-3">
+              Why Eleven Star
+              <span className="absolute bottom-0 left-0 w-20 h-0.5 bg-brand-green" />
+            </span>
           </h2>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Your trusted partner in building dreams, from residential homes to commercial spaces, 
-            delivering quality construction across Jamaica.
+          <p className="text-lg md:text-xl text-gray-600 max-w-prose mx-auto text-center font-light leading-relaxed">
+            Local expertise. Proven results. Quality construction across Jamaica.
           </p>
         </motion.div>
         
-        <div className="grid gap-6 md:grid-cols-3">
+        {/* Grid with equal height cards */}
+        <div className="grid gap-8 md:gap-10 md:grid-cols-3">
           {[
             { 
-              title: "Who We Are",
+              title: "About Us — Local Experts",
               icon: Building2,
-              description: "A dedicated team of local construction experts, bringing years of experience and craftsmanship to every project, big or small.",
+              points: [
+                "15+ years of experience",
+                "50+ years combined expertise",
+                "Jamaican craftsmanship"
+              ],
               link: "/who-we-are"
             },
             {
-              title: "Our Projects",
+              title: "Our Portfolio",
               icon: Hammer,
-              description: "From dream homes to commercial spaces, road construction to landscaping, discover how we're building Jamaica's future, one project at a time.",
+              points: [
+                "35+ completed projects",
+                "Residential & commercial",
+                "Road & infrastructure"
+              ],
               link: "/projects"
             },
             {
-              title: "Our Expertise",
+              title: "Core Services",
               icon: Trophy,
-              description: "Specializing in residential and commercial construction, renovations, land subdivision, road construction, and beautiful outdoor spaces.",
+              points: [
+                "New construction builds",
+                "Renovations & remodeling",
+                "Land development & roads"
+              ],
               link: "/services"
             }
           ].map((item, index) => (
@@ -50,21 +68,30 @@ export default function SectionGlance() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+              className="h-full"
             >
-              <Card className="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
+              <Card className="h-full flex flex-col group transform transition-all duration-300 hover:scale-[1.02] bg-white shadow-md shadow-black/5 hover:shadow-lg hover:shadow-black/10 border-0">
                 <CardHeader className="text-center">
-                  <div className="w-16 h-16 mx-auto mb-4 bg-brand-green/10 rounded-full flex items-center justify-center">
-                    <item.icon className="w-8 h-8 text-brand-green" />
+                  {/* Larger icon - visual focus */}
+                  <div className="w-24 h-24 mx-auto mb-6 bg-gray-100 rounded-full flex items-center justify-center group-hover:bg-brand-green/10 transition-colors duration-300">
+                    <item.icon className="w-12 h-12 text-gray-700 group-hover:text-brand-green transition-colors duration-300" strokeWidth={1.5} />
                   </div>
-                  <CardTitle className="text-2xl text-gray-900">{item.title}</CardTitle>
+                  <CardTitle className="text-xl font-semibold text-gray-900 mb-2">{item.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 text-center">
-                    {item.description}
-                  </p>
-                  <Link href={item.link} className="block">
-                    <button className="w-full mt-4 text-brand-green hover:text-white font-semibold transition-colors duration-300 py-2 border border-brand-green rounded-lg hover:bg-brand-green">
+                <CardContent className="flex flex-col flex-grow">
+                  {/* Content area grows to fill space */}
+                  <ul className="space-y-3 text-left flex-grow mb-6">
+                    {item.points.map((point, idx) => (
+                      <li key={idx} className="flex items-start text-gray-600">
+                        <span className="inline-block w-1.5 h-1.5 bg-brand-green rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <span className="text-base">{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {/* Smaller outline button - secondary to icon */}
+                  <Link href={item.link} className="block mt-auto">
+                    <button className="w-full text-brand-green border-2 border-brand-green hover:bg-brand-green hover:text-white font-medium text-sm py-2.5 rounded-lg transition-all duration-300">
                       Learn More
                     </button>
                   </Link>
@@ -76,4 +103,4 @@ export default function SectionGlance() {
       </div>
     </section>
   )
-} 
+}

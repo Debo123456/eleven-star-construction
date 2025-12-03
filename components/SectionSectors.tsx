@@ -2,6 +2,8 @@
 import { Card } from "@/components/ui/card"
 import QuoteButton from "@/components/QuoteButton"
 import { motion } from "framer-motion"
+import { Home, Building2, Wrench, Map, Construction, Trees, ArrowRight } from "lucide-react"
+import { useState } from "react"
 
 const sectors = [
   {
@@ -9,21 +11,18 @@ const sectors = [
     services: [
       {
         title: "Residential Construction",
-        icon: "home",
-        description: "Crafting beautiful, custom homes that blend structural integrity with stunning aesthetics. We work closely with you to bring your dream home to life, exceeding expectations at every step.",
-        link: "#",
+        icon: Home,
+        description: "Custom homes built to last — blending craftsmanship with modern design.",
       },
       {
         title: "Commercial Construction",
-        icon: "building-office",
-        description: "Creating dynamic commercial spaces that combine functionality with visual appeal. From office buildings to retail spaces, we deliver efficient, modern solutions for your business needs.",
-        link: "#",
+        icon: Building2,
+        description: "Functional business spaces — from offices to retail, built for success.",
       },
       {
         title: "Renovations & Remodeling",
-        icon: "home-modern",
-        description: "Transform your space with our expert renovation services. Whether it's a kitchen update, bathroom remodel, or whole-home transformation, we create custom solutions that fit your vision and budget.",
-        link: "#",
+        icon: Wrench,
+        description: "Transform existing spaces — kitchens, bathrooms, or full-home makeovers.",
       },
     ],
   },
@@ -32,49 +31,123 @@ const sectors = [
     services: [
       {
         title: "Land Subdivision",
-        icon: "map",
-        description: "Expert land subdivision services that maximize your property's potential. We handle all aspects of the process, ensuring compliance and optimal land use for your development needs.",
-        link: "#",
+        icon: Map,
+        description: "Property development done right — maximize potential with expert planning.",
       },
       {
         title: "Road Construction",
-        icon: "road",
-        description: "Comprehensive road construction services delivered with precision and expertise. From planning to execution, we ensure durable, high-quality infrastructure that stands the test of time.",
-        link: "#",
+        icon: Construction,
+        description: "Durable infrastructure — driveways, access roads, and asphalt paving.",
       },
       {
         title: "Landscaping & Outdoor Living",
-        icon: "leaf",
-        description: "Create your perfect outdoor sanctuary with our landscaping services. From elegant patios and decks to lush gardens and water features, we design outdoor spaces that enhance your lifestyle.",
-        link: "#",
+        icon: Trees,
+        description: "Beautiful outdoor spaces — patios, decks, gardens, and water features.",
       },
     ],
   },
 ]
 
-export default function SectionSectors() {
+// Clickable service card component
+function ServiceCard({ service, serviceIndex }: { service: typeof sectors[0]['services'][0], serviceIndex: number }) {
+  const [isQuoteOpen, setIsQuoteOpen] = useState(false)
+  
   const cardVariants = {
     hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0 }
   }
 
   return (
-    <section className="py-16 bg-gradient-to-b from-gray-100 to-white">
-      <div className="max-w-7xl mx-auto px-4">
+    <motion.div
+      variants={cardVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay: serviceIndex * 0.1 }}
+    >
+      {/* Entire card is clickable */}
+      <Card 
+        onClick={() => setIsQuoteOpen(true)}
+        className="group cursor-pointer transition-all duration-500 hover:-translate-y-1 hover:scale-[1.02] rounded-xl bg-white shadow-md shadow-black/5 hover:shadow-lg hover:shadow-black/10 border-0"
+        role="button"
+        tabIndex={0}
+        aria-label={`Request a quote for ${service.title}`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            setIsQuoteOpen(true)
+          }
+        }}
+      >
+        <div className="flex items-start p-8">
+          {/* Consistent icon style - rounded circle with thin line icon */}
+          <div className="flex-shrink-0 w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center transition-all duration-500 group-hover:bg-brand-green/10 group-hover:scale-110">
+            <service.icon className="w-8 h-8 text-gray-700 transition-all duration-500 group-hover:text-brand-green" strokeWidth={1.5} />
+          </div>
+          <div className="ml-6 flex-1">
+            <h4 className="text-xl md:text-2xl font-semibold mb-3 text-gray-900 transition-colors duration-300 group-hover:text-brand-green leading-snug">
+              {service.title}
+            </h4>
+            <p className="text-base md:text-lg text-gray-600 mb-4 transition-colors duration-300 group-hover:text-gray-700 font-light leading-relaxed">
+              {service.description}
+            </p>
+            {/* Subtle text link instead of button */}
+            <span className="inline-flex items-center text-brand-green font-medium transition-all duration-300 group-hover:translate-x-1">
+              Get a quote
+              <ArrowRight className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={1.5} />
+            </span>
+          </div>
+        </div>
+      </Card>
+      
+      {/* Hidden QuoteButton that opens on card click */}
+      <QuoteButton 
+        trigger={
+          <span 
+            className="hidden"
+            ref={(el) => {
+              if (el && isQuoteOpen) {
+                el.click()
+                setIsQuoteOpen(false)
+              }
+            }}
+          />
+        }
+        initialService={service.title}
+      />
+    </motion.div>
+  )
+}
+
+export default function SectionSectors() {
+  return (
+    <section className="py-20 md:py-28 bg-[#F8F9FB] relative overflow-hidden">
+      {/* Micro-brand pattern overlay */}
+      <div className="absolute inset-0 bg-construction-grid opacity-100 pointer-events-none" />
+      
+      {/* Decorative ruler marks at bottom */}
+      <div className="absolute bottom-0 left-0 w-full h-2 bg-ruler-marks opacity-50 rotate-180" />
+      
+      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl font-bold mb-4">Our Services</h2>
-          <p className="text-lg text-gray-700 max-w-2xl mx-auto">
-            Tailored construction solutions for both individuals and businesses
+          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-900 leading-tight uppercase tracking-premium">
+            <span className="inline-block relative pb-3">
+              What We Build
+              <span className="absolute bottom-0 left-0 w-20 h-0.5 bg-brand-green" />
+            </span>
+          </h2>
+          <p className="text-xl md:text-2xl text-gray-600 max-w-prose mx-auto text-center font-light leading-relaxed">
+            Full-service construction — residential, commercial & infrastructure
           </p>
         </motion.div>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-20">
           {sectors.map((category, categoryIndex) => (
             <motion.div 
               key={category.category}
@@ -82,64 +155,21 @@ export default function SectionSectors() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
-              className="space-y-8"
+              className="space-y-10"
             >
-              <h3 className="text-3xl font-bold text-center mb-8">{category.category}</h3>
-              <div className="space-y-6">
+              <h3 className="text-2xl md:text-3xl font-bold text-center mb-10 text-gray-900 leading-tight relative inline-block w-full uppercase tracking-premium">
+                <span className="relative inline-block pb-3">
+                  {category.category}
+                  <span className="absolute -bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-0.5 bg-brand-green" />
+                </span>
+              </h3>
+              <div className="space-y-8">
                 {category.services.map((service, serviceIndex) => (
-                  <motion.div
+                  <ServiceCard 
                     key={service.title}
-                    variants={cardVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: serviceIndex * 0.1 }}
-                  >
-                    <Card className="group transition-all duration-500 hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] hover:-translate-y-1 hover:scale-[1.02] rounded-xl">
-                      <div className="flex items-start p-6">
-                        <div className="flex-shrink-0 p-3 bg-brand-green/10 rounded-xl transition-all duration-500 group-hover:bg-brand-green/20 group-hover:scale-110 group-hover:rotate-3">
-                          <svg
-                            className="w-6 h-6 text-brand-green transition-transform duration-500 group-hover:scale-110"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-                            />
-                          </svg>
-                        </div>
-                        <div className="ml-6">
-                          <h4 className="text-xl font-semibold mb-2 transition-colors duration-300 group-hover:text-black/80">
-                            {service.title}
-                          </h4>
-                          <p className="text-gray-600 mb-4 transition-colors duration-300 group-hover:text-gray-700">
-                            {service.description}
-                          </p>
-                          <QuoteButton 
-                            trigger={
-                              <button className="inline-flex items-center text-brand-green font-semibold border-b-2 border-brand-green pb-1 transition-all duration-300 hover:pb-2">
-                                Get Started
-                                <svg 
-                                  className="w-4 h-4 ml-2 transition-all duration-500 group-hover:translate-x-2" 
-                                  viewBox="0 0 24 24" 
-                                  fill="none" 
-                                  stroke="currentColor" 
-                                  strokeWidth="2"
-                                >
-                                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                              </button>
-                            }
-                            initialService={service.title}
-                          />
-                        </div>
-                      </div>
-                    </Card>
-                  </motion.div>
+                    service={service}
+                    serviceIndex={serviceIndex}
+                  />
                 ))}
               </div>
             </motion.div>
@@ -148,4 +178,4 @@ export default function SectionSectors() {
       </div>
     </section>
   )
-} 
+}

@@ -1,7 +1,10 @@
 "use client"
 import ProjectCarousel from "@/components/ProjectCarousel"
+import CloudinaryImage from "@/components/CloudinaryImage"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
+import { ArrowRight, X } from "lucide-react"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 interface Project {
   title: string;
@@ -16,18 +19,19 @@ interface Project {
 }
 
 // Fallback projects data (moved outside component to avoid dependency issues)
+// Uses Cloudinary public IDs for images
 const fallbackProjects: Project[] = [
     {
       title: "Driveway Asphalting",
       category: "Road Construction",
       images: [
-        "/images/projects/road-construction/driveway-1.webp",
-        "/images/projects/road-construction/driveway-2.webp",
-        "/images/projects/road-construction/driveway-3.webp",
-        "/images/projects/road-construction/driveway-4.webp",
-        "/images/projects/road-construction/driveway-5.webp",
-        "/images/projects/road-construction/driveway-6.webp",
-        "/images/projects/road-construction/driveway-7.webp"
+        "eleven-star/projects/road-construction/driveway-1",
+        "eleven-star/projects/road-construction/driveway-2",
+        "eleven-star/projects/road-construction/driveway-3",
+        "eleven-star/projects/road-construction/driveway-4",
+        "eleven-star/projects/road-construction/driveway-5",
+        "eleven-star/projects/road-construction/driveway-6",
+        "eleven-star/projects/road-construction/driveway-7"
       ],
       description: "Complete driveway transformation project featuring professional asphalt paving, proper drainage solutions, and expert finishing work. Showcasing our commitment to quality residential road construction.",
       completion: "2023",
@@ -43,10 +47,10 @@ const fallbackProjects: Project[] = [
       title: "Luxury Residential Complex",
       category: "Residential Construction",
       images: [
-        "/images/projects/residential-construction/luxury-1.webp",
-        "/images/projects/residential-construction/luxury-2.webp",
-        "/images/projects/residential-construction/luxury-3.webp",
-        "/images/projects/residential-construction/luxury-4.webp",
+        "eleven-star/projects/residential-construction/luxury-1",
+        "eleven-star/projects/residential-construction/luxury-2",
+        "eleven-star/projects/residential-construction/luxury-3",
+        "eleven-star/projects/residential-construction/luxury-4"
       ],
       description: "Multi-unit residential development showcasing modern architectural design, premium finishes, and attention to detail in every aspect of construction.",
       completion: "2023",
@@ -62,9 +66,9 @@ const fallbackProjects: Project[] = [
       title: "Modern Residential Complex",
       category: "Residential Construction",
       images: [
-        "/images/projects/residential-construction/modern-1.webp",
-        "/images/projects/residential-construction/modern-2.webp",
-        "/images/projects/residential-construction/modern-3.webp"
+        "eleven-star/projects/residential-construction/modern-1",
+        "eleven-star/projects/residential-construction/modern-2",
+        "eleven-star/projects/residential-construction/modern-3"
       ],
       description: "Contemporary residential development featuring clean lines, open spaces, and innovative design elements that blend functionality with aesthetic appeal.",
       completion: "2022",
@@ -80,7 +84,7 @@ const fallbackProjects: Project[] = [
       title: "Home Renovation Project",
       category: "Renovations & Remodeling",
       images: [
-        "/images/projects/renovations-remodeling/renovations-1.webp"
+        "eleven-star/projects/renovations-remodeling/renovations-1"
       ],
       description: "Comprehensive home renovation showcasing our ability to transform existing spaces into modern, functional living areas while maintaining structural integrity.",
       completion: "2022",
@@ -96,10 +100,10 @@ const fallbackProjects: Project[] = [
       title: "Commercial Building Development",
       category: "Commercial Construction",
       images: [
-        "/images/projects/commercial-construction/commercial-1.webp",
-        "/images/projects/commercial-construction/commercial-2.webp",
-        "/images/projects/commercial-construction/commercial-3.webp",
-        "/images/projects/commercial-construction/commercial-4.webp",
+        "eleven-star/projects/commercial-construction/commercial-1",
+        "eleven-star/projects/commercial-construction/commercial-2",
+        "eleven-star/projects/commercial-construction/commercial-3",
+        "eleven-star/projects/commercial-construction/commercial-4"
       ],
       description: "State-of-the-art commercial facility featuring modern design elements, efficient space utilization, and sustainable building practices.",
       completion: "2023",
@@ -117,6 +121,8 @@ export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [selectedFilter, setSelectedFilter] = useState<string>("ALL")
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -163,17 +169,37 @@ export default function ProjectsPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative h-[400px] flex items-center justify-center bg-black text-white"
+        className="relative h-[400px] md:h-[500px] flex items-center justify-center overflow-hidden"
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-black to-gray-900" />
+        {/* Background image */}
+        <CloudinaryImage
+          src="eleven-star/hero/hero-construction-2"
+          alt="Featured construction projects by Eleven Star Construction"
+          fill
+          priority
+          className="object-cover z-0"
+          sizes="100vw"
+          quality="auto:good"
+          crop="fill"
+          gravity="center"
+        />
+        
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/70 to-black/50 z-[8]" />
+        
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.6 }}
-          className="relative z-10 text-center px-4"
+          className="relative z-10 text-center px-6 md:px-8 max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl font-bold mb-4">Featured Projects</h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight uppercase tracking-premium text-white">
+            <span className="inline-block relative pb-3">
+              Featured Projects
+              <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-0.5 bg-brand-green" />
+            </span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-light leading-relaxed">
             Showcasing Eleven Star Construction&apos;s commitment to excellence 
             through our portfolio of transformative projects.
           </p>
@@ -191,19 +217,69 @@ export default function ProjectsPage() {
         </section>
       )}
 
+      {/* Filter Bar */}
+      <section className="py-8 bg-white border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-6 md:px-8">
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-6">
+            {["ALL", "RESIDENTIAL", "COMMERCIAL", "RENOVATIONS", "ROADS"].map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setSelectedFilter(filter)}
+                className={`text-sm md:text-base font-medium uppercase tracking-wider transition-all duration-200 pb-2 relative ${
+                  selectedFilter === filter
+                    ? "text-brand-green"
+                    : "text-gray-600 hover:text-gray-900"
+                }`}
+                aria-label={`Filter by ${filter}`}
+              >
+                {filter}
+                {selectedFilter === filter && (
+                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-brand-green"></span>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Projects Grid */}
-      <section className="py-16 px-4">
+      <section className="py-20 md:py-28 px-6 md:px-8">
         <div className="max-w-6xl mx-auto">
-          {projects.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="text-gray-500 mb-4">
-                <h3 className="text-lg font-medium">No projects available</h3>
-                <p className="text-sm">Check back later for new projects</p>
-              </div>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-8">
-              {projects.map((project, index) => (
+          {(() => {
+            // Filter projects based on selected category
+            const filteredProjects = projects.filter((project) => {
+              if (selectedFilter === "ALL") return true
+              
+              const categoryUpper = project.category.toUpperCase()
+              if (selectedFilter === "RESIDENTIAL") {
+                return categoryUpper.includes("RESIDENTIAL")
+              }
+              if (selectedFilter === "COMMERCIAL") {
+                return categoryUpper.includes("COMMERCIAL")
+              }
+              if (selectedFilter === "RENOVATIONS") {
+                return categoryUpper.includes("RENOVATION") || categoryUpper.includes("REMODELING")
+              }
+              if (selectedFilter === "ROADS") {
+                return categoryUpper.includes("ROAD")
+              }
+              return true
+            })
+
+            if (filteredProjects.length === 0) {
+              return (
+                <div className="text-center py-12">
+                  <div className="text-gray-500 mb-4">
+                    <h3 className="text-lg font-medium">No projects found</h3>
+                    <p className="text-sm">Try selecting a different category</p>
+                  </div>
+                </div>
+              )
+            }
+
+            return (
+              <div className="grid md:grid-cols-2 gap-8">
+                {filteredProjects.map((project, index) => (
                 <motion.div 
                   key={project.id}
                   initial={{ opacity: 0, y: 50 }}
@@ -213,39 +289,38 @@ export default function ProjectsPage() {
                     duration: 0.5,
                     delay: index * 0.2 // Stagger effect
                   }}
-                  className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.15)] transition-all duration-300"
+                  className="group bg-white border border-gray-200 rounded-xl overflow-hidden shadow-md shadow-black/5 hover:shadow-lg hover:shadow-black/10 transition-all duration-300"
                 >
-                  <div className="relative">
-                    <ProjectCarousel 
-                      images={project.images} 
-                      title={project.title}
-                    />
-                    <div className="absolute top-4 left-4 z-10 bg-brand-green text-white px-4 py-1.5 rounded-xl shadow-lg">
-                      {project.category}
+                  <div className="relative overflow-hidden">
+                    <div className="group-hover:scale-105 transition-transform duration-300">
+                      <ProjectCarousel 
+                        images={project.images} 
+                        title={project.title}
+                      />
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-2xl font-bold mb-2">{project.title}</h3>
-                    <p className="text-gray-600 mb-4">{project.description}</p>
-                    <div className="mb-4">
-                      <h4 className="font-semibold mb-2">Key Features:</h4>
-                      <ul className="grid grid-cols-2 gap-2">
-                        {project.details.map((detail, idx) => (
-                          <li key={`${project.id}-detail-${idx}`} className="flex items-center text-gray-600">
-                            <span className="w-1.5 h-1.5 bg-black rounded-full mr-2"></span>
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">
+                      {project.category}
                     </div>
-                    <div className="pt-4 border-t border-gray-200 text-center">
-                      <span className="text-gray-500">Completed: {project.completion}</span>
+                    <h3 className="text-2xl font-bold mb-2 text-gray-900 group-hover:text-brand-green transition-colors duration-300">{project.title}</h3>
+                    <p className="text-gray-600 mb-4 font-light leading-relaxed">{project.description}</p>
+                    <div className="pt-4 border-t border-gray-200 flex items-center justify-between">
+                      <span className="text-gray-500 text-sm">Completed: {project.completion}</span>
+                      <button
+                        onClick={() => setSelectedProject(project)}
+                        className="text-brand-green hover:text-brand-green-light font-medium text-sm flex items-center gap-1 transition-colors duration-200"
+                      >
+                        View Details
+                        <span className="text-lg">+</span>
+                      </button>
                     </div>
                   </div>
                 </motion.div>
-              ))}
-            </div>
-          )}
+                ))}
+              </div>
+            )
+          })()}
         </div>
       </section>
 
@@ -255,11 +330,11 @@ export default function ProjectsPage() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
-        className="bg-black text-white py-16"
+        className="bg-black text-white py-20 md:py-28"
       >
-        <div className="max-w-4xl mx-auto text-center px-4">
-          <h2 className="text-3xl font-bold mb-4">Ready to Build Something Great?</h2>
-          <p className="text-gray-300 mb-8">
+        <div className="max-w-4xl mx-auto text-center px-6 md:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 leading-tight">Ready to Build Something Great?</h2>
+          <p className="text-lg md:text-xl text-gray-300 mb-8 font-light leading-relaxed">
             Let Eleven Star Construction bring your vision to life with our proven expertise 
             and commitment to excellence.
           </p>
@@ -272,6 +347,62 @@ export default function ProjectsPage() {
           </motion.button>
         </div>
       </motion.section>
+
+      {/* Project Details Modal */}
+      {selectedProject && (
+        <Dialog open={!!selectedProject} onOpenChange={(open) => !open && setSelectedProject(null)}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+            <DialogHeader>
+              <DialogTitle className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
+                {selectedProject.title}
+              </DialogTitle>
+              <div className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-4">
+                {selectedProject.category}
+              </div>
+            </DialogHeader>
+            
+            <div className="space-y-6">
+              {/* Project Images */}
+              <div className="relative h-[300px] md:h-[400px] rounded-xl overflow-hidden">
+                <ProjectCarousel 
+                  images={selectedProject.images} 
+                  title={selectedProject.title}
+                />
+              </div>
+
+              {/* Full Description */}
+              <div>
+                <h3 className="text-lg font-semibold mb-3 text-gray-900">Project Overview</h3>
+                <p className="text-gray-600 font-light leading-relaxed">
+                  {selectedProject.description}
+                </p>
+              </div>
+
+              {/* Key Features */}
+              {selectedProject.details && selectedProject.details.length > 0 && (
+                <div>
+                  <h3 className="text-lg font-semibold mb-3 text-gray-900">Key Features</h3>
+                  <ul className="grid md:grid-cols-2 gap-3">
+                    {selectedProject.details.map((detail, idx) => (
+                      <li key={idx} className="flex items-start text-gray-600">
+                        <span className="inline-block w-1.5 h-1.5 bg-brand-green rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                        <span className="text-sm font-light">{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Completion Date */}
+              <div className="pt-4 border-t border-gray-200">
+                <p className="text-gray-500 text-sm">
+                  <span className="font-medium">Completed:</span> {selectedProject.completion}
+                </p>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </main>
   )
 }       
