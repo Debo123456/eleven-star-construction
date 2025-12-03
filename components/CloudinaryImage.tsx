@@ -16,7 +16,7 @@ interface CloudinaryImageProps {
   quality?: number | string
   crop?: string
   gravity?: string
-  [key: string]: any
+  [key: string]: unknown
 }
 
 /**

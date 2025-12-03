@@ -3,7 +3,6 @@ import ProjectCarousel from "@/components/ProjectCarousel"
 import CloudinaryImage from "@/components/CloudinaryImage"
 import { motion } from "framer-motion"
 import { useState, useEffect } from "react"
-import { ArrowRight, X } from "lucide-react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 
 interface Project {

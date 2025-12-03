@@ -1,11 +1,11 @@
 "use client"
 
-import { useState, useRef, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
-import { X, Upload, Plus, Trash2, Cloud, AlertCircle } from 'lucide-react'
+import { X, Plus, Trash2, Cloud, AlertCircle } from 'lucide-react'
 import { CldUploadWidget } from 'next-cloudinary'
 import CloudinaryImage from '@/components/CloudinaryImage'
 import { isCloudinaryEnabled } from '@/lib/cloudinary'
@@ -48,7 +48,6 @@ export default function ProjectForm({ project, onSubmit, onCancel }: ProjectForm
     images: project?.images || []
   })
   
-  const [isUploading, setIsUploading] = useState(false)
   const cloudinaryEnabled = isCloudinaryEnabled()
 
   const handleInputChange = (field: string, value: string) => {
@@ -85,7 +84,15 @@ export default function ProjectForm({ project, onSubmit, onCancel }: ProjectForm
   }
 
   // Handle Cloudinary upload success
-  const handleCloudinaryUpload = useCallback((result: any) => {
+  interface CloudinaryUploadResult {
+    event: string
+    info: {
+      public_id: string
+      [key: string]: unknown
+    }
+  }
+
+  const handleCloudinaryUpload = useCallback((result: CloudinaryUploadResult) => {
     if (result.event === 'success') {
       const publicId = result.info.public_id
       setFormData(prev => ({
@@ -368,7 +375,7 @@ export default function ProjectForm({ project, onSubmit, onCancel }: ProjectForm
         <Button type="button" variant="outline" onClick={onCancel}>
           Cancel
         </Button>
-        <Button type="submit" disabled={!isFormValid || isUploading}>
+        <Button type="submit" disabled={!isFormValid}>
           {project ? 'Update Project' : 'Create Project'}
         </Button>
       </div>

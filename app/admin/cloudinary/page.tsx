@@ -3,12 +3,22 @@
 import CloudinaryUploadWidget from '@/components/CloudinaryUploadWidget'
 import { useState } from 'react'
 import { Upload, Image as ImageIcon, Copy, CheckCircle2 } from 'lucide-react'
+import Image from 'next/image'
+
+interface UploadedImage {
+  publicId: string
+  url: string
+  width: number
+  height: number
+  format: string
+  resourceType: string
+}
 
 export default function CloudinaryAdminPage() {
-  const [uploadedImages, setUploadedImages] = useState<any[]>([])
+  const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([])
   const [copiedId, setCopiedId] = useState<string | null>(null)
 
-  const handleUploadSuccess = (result: any) => {
+  const handleUploadSuccess = (result: UploadedImage) => {
     setUploadedImages(prev => [...prev, result])
   }
 
@@ -94,10 +104,12 @@ export default function CloudinaryAdminPage() {
                 >
                   {/* Image Preview */}
                   <div className="relative h-48 bg-gray-100">
-                    <img
+                    <Image
                       src={image.url}
                       alt={`Upload ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
 

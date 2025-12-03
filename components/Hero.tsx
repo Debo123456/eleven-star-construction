@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import CloudinaryImage from "@/components/CloudinaryImage"
 import { motion } from "framer-motion"
 
@@ -42,7 +41,7 @@ export default function Hero() {
           transition={{ delay: 0.3, duration: 0.8 }}
           className="text-xl md:text-2xl text-white mb-8 max-w-prose mx-auto text-center font-light leading-relaxed"
         >
-          Jamaica's trusted construction experts — from residential to commercial
+          Jamaica&apos;s trusted construction experts — from residential to commercial
         </motion.p>
         <motion.div 
           initial={{ opacity: 0, y: 20 }}

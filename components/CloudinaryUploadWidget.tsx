@@ -3,9 +3,32 @@
 import { CldUploadWidget } from 'next-cloudinary'
 import { Upload, Image as ImageIcon } from 'lucide-react'
 import { useState } from 'react'
+import Image from 'next/image'
+
+interface CloudinaryResultInfo {
+  public_id: string
+  secure_url: string
+  width: number
+  height: number
+  format: string
+  resource_type: string
+}
+
+interface CloudinaryResult {
+  info: CloudinaryResultInfo
+}
+
+interface UploadedImageData {
+  publicId: string
+  url: string
+  width: number
+  height: number
+  format: string
+  resourceType: string
+}
 
 interface CloudinaryUploadWidgetProps {
-  onUploadSuccess?: (result: any) => void
+  onUploadSuccess?: (result: UploadedImageData) => void
   folder?: string
   uploadPreset?: string
   multiple?: boolean
@@ -23,9 +46,9 @@ export default function CloudinaryUploadWidget({
   multiple = true,
   maxFiles = 10,
 }: CloudinaryUploadWidgetProps) {
-  const [uploadedImages, setUploadedImages] = useState<any[]>([])
+  const [uploadedImages, setUploadedImages] = useState<UploadedImageData[]>([])
 
-  const handleUploadSuccess = (result: any) => {
+  const handleUploadSuccess = (result: CloudinaryResult) => {
     const imageData = {
       publicId: result.info.public_id,
       url: result.info.secure_url,
@@ -97,12 +120,14 @@ export default function CloudinaryUploadWidget({
             {uploadedImages.map((image, index) => (
               <div
                 key={index}
-                className="relative group rounded-lg overflow-hidden border-2 border-gray-200 hover:border-brand-green transition-colors duration-300"
+                className="relative group rounded-lg overflow-hidden border-2 border-gray-200 hover:border-brand-green transition-colors duration-300 h-32"
               >
-                <img
+                <Image
                   src={image.url}
                   alt={`Uploaded ${index + 1}`}
-                  className="w-full h-32 object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 50vw, 25vw"
                 />
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                   <div className="text-white text-xs text-center px-2">
