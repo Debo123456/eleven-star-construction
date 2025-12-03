@@ -4,6 +4,8 @@ import { CldImage } from 'next-cloudinary'
 import Image from 'next/image'
 import { isCloudinaryEnabled, getCloudinaryPublicId, isCloudinaryPublicId } from '@/lib/cloudinary'
 
+type CropMode = "scale" | "fill" | "auto" | "limit" | "crop" | "fill_pad" | "fit" | "imagga_crop" | "imagga_scale" | "lfill" | "lpad" | "mfit" | "mpad" | "pad" | "thumb"
+
 interface CloudinaryImageProps {
   src: string
   alt: string
@@ -14,7 +16,7 @@ interface CloudinaryImageProps {
   className?: string
   sizes?: string
   quality?: number | string
-  crop?: string
+  crop?: CropMode | string
   gravity?: string
   [key: string]: unknown
 }
@@ -57,7 +59,7 @@ export default function CloudinaryImage({
           priority={priority}
           className={className}
           sizes={sizes}
-          crop={crop}
+          crop={crop as CropMode}
           gravity={gravity}
           quality={quality}
           {...props}
@@ -74,7 +76,7 @@ export default function CloudinaryImage({
         priority={priority}
         className={className}
         sizes={sizes}
-        crop={crop}
+        crop={crop as CropMode}
         gravity={gravity}
         quality={quality}
         {...props}

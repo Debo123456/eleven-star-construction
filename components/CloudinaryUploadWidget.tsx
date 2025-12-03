@@ -1,21 +1,18 @@
 "use client"
 
 import { CldUploadWidget } from 'next-cloudinary'
+import type { CloudinaryUploadWidgetResults } from '@cloudinary-util/types'
 import { Upload, Image as ImageIcon } from 'lucide-react'
 import { useState } from 'react'
 import Image from 'next/image'
 
-interface CloudinaryResultInfo {
+interface CloudinaryUploadWidgetInfo {
   public_id: string
   secure_url: string
   width: number
   height: number
   format: string
   resource_type: string
-}
-
-interface CloudinaryResult {
-  info: CloudinaryResultInfo
 }
 
 interface UploadedImageData {
@@ -48,14 +45,21 @@ export default function CloudinaryUploadWidget({
 }: CloudinaryUploadWidgetProps) {
   const [uploadedImages, setUploadedImages] = useState<UploadedImageData[]>([])
 
-  const handleUploadSuccess = (result: CloudinaryResult) => {
-    const imageData = {
-      publicId: result.info.public_id,
-      url: result.info.secure_url,
-      width: result.info.width,
-      height: result.info.height,
-      format: result.info.format,
-      resourceType: result.info.resource_type,
+  const handleUploadSuccess = (result: CloudinaryUploadWidgetResults) => {
+    // Check if info exists and is an object (not a string)
+    if (!result.info || typeof result.info === 'string') {
+      return
+    }
+
+    const info = result.info as CloudinaryUploadWidgetInfo
+    
+    const imageData: UploadedImageData = {
+      publicId: info.public_id,
+      url: info.secure_url,
+      width: info.width,
+      height: info.height,
+      format: info.format,
+      resourceType: info.resource_type,
     }
     
     setUploadedImages(prev => [...prev, imageData])

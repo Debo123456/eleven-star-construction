@@ -2,10 +2,10 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useState, useEffect } from "react"
+import { useState, useEffect, forwardRef } from "react"
 import { usePathname } from "next/navigation"
 
-export default function Header() {
+const Header = forwardRef<HTMLElement>((props, ref) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
@@ -25,6 +25,7 @@ export default function Header() {
 
   return (
     <header 
+      ref={ref}
       data-site-header
       className={`bg-white transition-all duration-300 z-50 ${
         isScrolled 
@@ -183,4 +184,8 @@ export default function Header() {
       </div>
     </header>
   )
-}
+})
+
+Header.displayName = "Header"
+
+export default Header

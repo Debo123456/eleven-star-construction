@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card } from '@/components/ui/card'
 import { X, Plus, Trash2, Cloud, AlertCircle } from 'lucide-react'
 import { CldUploadWidget } from 'next-cloudinary'
+import type { CloudinaryUploadWidgetResults } from '@cloudinary-util/types'
 import CloudinaryImage from '@/components/CloudinaryImage'
 import { isCloudinaryEnabled } from '@/lib/cloudinary'
 import Image from 'next/image'
@@ -84,21 +85,17 @@ export default function ProjectForm({ project, onSubmit, onCancel }: ProjectForm
   }
 
   // Handle Cloudinary upload success
-  interface CloudinaryUploadResult {
-    event: string
-    info: {
-      public_id: string
-      [key: string]: unknown
-    }
-  }
-
-  const handleCloudinaryUpload = useCallback((result: CloudinaryUploadResult) => {
-    if (result.event === 'success') {
-      const publicId = result.info.public_id
-      setFormData(prev => ({
-        ...prev,
-        images: [...prev.images, publicId]
-      }))
+  const handleCloudinaryUpload = useCallback((result: CloudinaryUploadWidgetResults) => {
+    // Check if event is success and info exists and is an object
+    if (result.event === 'success' && result.info && typeof result.info === 'object' && !Array.isArray(result.info)) {
+      const info = result.info as { public_id: string; [key: string]: unknown }
+      const publicId = info.public_id
+      if (publicId) {
+        setFormData(prev => ({
+          ...prev,
+          images: [...prev.images, publicId]
+        }))
+      }
     }
   }, [])
 
