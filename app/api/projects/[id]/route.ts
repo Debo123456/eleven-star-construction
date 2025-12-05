@@ -1,57 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { writeFile, readFile, mkdir } from 'fs/promises'
-import { existsSync } from 'fs'
-import path from 'path'
+import { supabase, formatProject } from '@/lib/supabase'
+import { readProjectsFromJSON, writeProjectsToJSON, type Project } from '@/lib/projects-json'
 
-const PROJECTS_FILE = path.join(process.cwd(), 'data', 'projects.json')
-
-// Ensure data directory exists
-async function ensureDataDir() {
-  const dataDir = path.dirname(PROJECTS_FILE)
-  if (!existsSync(dataDir)) {
-    await mkdir(dataDir, { recursive: true })
+// Type guard to ensure supabase is available
+const getSupabase = () => {
+  if (!supabase) {
+    return null
   }
+  return supabase
 }
-
-// Read projects from file
-async function readProjects(): Promise<Project[]> {
-  try {
-    await ensureDataDir()
-    if (!existsSync(PROJECTS_FILE)) {
-      return []
-    }
-    const data = await readFile(PROJECTS_FILE, 'utf-8')
-    return JSON.parse(data) as Project[]
-  } catch (error) {
-    console.error('Error reading projects:', error)
-    return []
-  }
-}
-
-// Write projects to file
-async function writeProjects(projects: Project[]) {
-  try {
-    await ensureDataDir()
-    await writeFile(PROJECTS_FILE, JSON.stringify(projects, null, 2))
-  } catch (error) {
-    console.error('Error writing projects:', error)
-    throw error
-  }
-}
-
-// Project interface
-interface Project {
-  id: string;
-  title: string;
-  category: string;
-  description: string;
-  completion: string;
-  details: string[];
-  images: string[];
-  createdAt: string;
-  updatedAt: string;
-}
-
 
 export async function GET(
   request: NextRequest,
@@ -59,7 +16,31 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    const projects = await readProjects()
+
+    // Try Supabase first (if configured)
+    const client = getSupabase()
+    if (client) {
+      try {
+        const { data, error } = await client
+          .from('projects')
+          .select('*')
+          .eq('id', id)
+          .single()
+
+        if (!error && data) {
+          return NextResponse.json(formatProject(data))
+        }
+        
+        console.warn('Supabase fetch failed, falling back to JSON:', error?.message)
+      } catch (supabaseError) {
+        console.warn('Supabase connection error, falling back to JSON:', supabaseError)
+      }
+    } else {
+      console.warn('Supabase not configured, using JSON fallback')
+    }
+
+    // Fallback to JSON file
+    const projects = await readProjectsFromJSON()
     const project = projects.find((p: Project) => p.id === id)
     
     if (!project) {
@@ -87,7 +68,62 @@ export async function PUT(
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
     }
 
-    const projects = await readProjects()
+    // Try Supabase first (if configured)
+    const client = getSupabase()
+    if (client) {
+      try {
+        // Check if project exists
+        const { data: existingProject, error: fetchError } = await client
+          .from('projects')
+          .select('id')
+          .eq('id', id)
+          .single()
+
+        if (!fetchError && existingProject) {
+          // Check if another project with same title exists (excluding current project)
+          const { data: duplicateProjects, error: checkError } = await client
+            .from('projects')
+            .select('id')
+            .ilike('title', title)
+            .neq('id', id)
+
+          if (!checkError) {
+            if (duplicateProjects && duplicateProjects.length > 0) {
+              return NextResponse.json({ error: 'Project with this title already exists' }, { status: 400 })
+            }
+
+            // Update project
+            const { data: updatedProject, error: updateError } = await client
+              .from('projects')
+              .update({
+                title,
+                category,
+                description,
+                completion,
+                details: details.filter((detail: string) => detail.trim() !== ''),
+                images: images || []
+                // updated_at is automatically updated by the trigger
+              })
+              .eq('id', id)
+              .select()
+              .single()
+
+            if (!updateError && updatedProject) {
+              return NextResponse.json(formatProject(updatedProject))
+            }
+          }
+        }
+        
+        console.warn('Supabase update failed, falling back to JSON:', fetchError?.message || 'Unknown error')
+      } catch (supabaseError) {
+        console.warn('Supabase connection error, falling back to JSON:', supabaseError)
+      }
+    } else {
+      console.warn('Supabase not configured, using JSON fallback')
+    }
+
+    // Fallback to JSON file
+    const projects = await readProjectsFromJSON()
     const projectIndex = projects.findIndex((p: Project) => p.id === id)
     
     if (projectIndex === -1) {
@@ -100,7 +136,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Project with this title already exists' }, { status: 400 })
     }
 
-    const updatedProject = {
+    const updatedProject: Project = {
       ...projects[projectIndex],
       title,
       category,
@@ -112,7 +148,7 @@ export async function PUT(
     }
 
     projects[projectIndex] = updatedProject
-    await writeProjects(projects)
+    await writeProjectsToJSON(projects)
 
     return NextResponse.json(updatedProject)
   } catch (error) {
@@ -127,7 +163,30 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params
-    const projects = await readProjects()
+
+    // Try Supabase first (if configured)
+    const client = getSupabase()
+    if (client) {
+      try {
+        const { error } = await client
+          .from('projects')
+          .delete()
+          .eq('id', id)
+
+        if (!error) {
+          return NextResponse.json({ message: 'Project deleted successfully' })
+        }
+        
+        console.warn('Supabase delete failed, falling back to JSON:', error.message)
+      } catch (supabaseError) {
+        console.warn('Supabase connection error, falling back to JSON:', supabaseError)
+      }
+    } else {
+      console.warn('Supabase not configured, using JSON fallback')
+    }
+
+    // Fallback to JSON file
+    const projects = await readProjectsFromJSON()
     const projectIndex = projects.findIndex((p: Project) => p.id === id)
     
     if (projectIndex === -1) {
@@ -135,7 +194,7 @@ export async function DELETE(
     }
 
     projects.splice(projectIndex, 1)
-    await writeProjects(projects)
+    await writeProjectsToJSON(projects)
 
     return NextResponse.json({ message: 'Project deleted successfully' })
   } catch (err) {

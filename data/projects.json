@@ -102,22 +102,5 @@
     ],
     "createdAt": "2024-01-01T00:00:00.000Z",
     "updatedAt": "2024-01-01T00:00:00.000Z"
-  },
-  {
-    "id": "new-project",
-    "title": "New Project",
-    "category": "Commercial Construction",
-    "description": "This is a new project for testing cloudinary",
-    "completion": "2025*",
-    "details": [
-      "Feature 1",
-      "Feature 2",
-      "Feature 3"
-    ],
-    "images": [
-      "eleven-star/projects/qg3dzcynzv2a3dgjxgdx"
-    ],
-    "createdAt": "2025-12-02T16:27:19.212Z",
-    "updatedAt": "2025-12-02T16:34:04.697Z"
   }
 ]
